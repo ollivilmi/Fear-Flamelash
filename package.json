@@ -1,0 +1,26 @@
+{
+  "name": "guild-website",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.16.3"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.6",
+    "nodemon": "^1.18.10"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.0"
+  }
+}
