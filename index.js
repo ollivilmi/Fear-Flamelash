@@ -1,20 +1,19 @@
 const express = require('express');
 const path = require('path');
-
+const bodyParser = require("body-parser");
 const app = express();
 const connection = require("./connection/config");
+
+const userRoute = require("./routes/user");
 
 connection.connectDB();
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-// An api endpoint that returns a short list of items
-app.get('/api/getList', (req,res) => {
-    var list = ["item1", "item2", "item3"];
-    res.json(list);
-    console.log('Sent list of items');
-});
+app.use("/api/user", userRoute);
 
 // Handles any requests that don't match the ones above
 app.get('/*', (req,res) =>{

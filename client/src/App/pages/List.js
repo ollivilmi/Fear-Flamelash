@@ -16,13 +16,14 @@ class List extends Component {
 
   // Retrieves the list of items from the Express app
   getList = () => {
-    fetch('/api/getList')
+    fetch('/api/user')
     .then(res => res.json())
     .then(list => this.setState({ list }))
   }
 
   render() {
     const { list } = this.state;
+    console.log(this.state);
 
     return (
       <div className="App">
@@ -34,7 +35,7 @@ class List extends Component {
             {list.map((item) => {
               return(
                 <div>
-                  {item}
+                  {item.name} {item.ep} {item.gp}
                 </div>
               );
             })}
