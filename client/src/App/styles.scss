@@ -1,3 +1,18 @@
+@import '~csstyle/csstyle';
+
+@include component(btn) {
+    display: inline-block;
+    position: relative;
+    padding: .5em 1em;
+    color: #ffffff;
+    background-color: #1f1f1f;
+    transition: background-color .2s;
+
+    &:hover {
+        background-color: lighten(#1f1f1f, 10%);
+    }
+}
+
 .App {
   text-align: center;
 }
@@ -20,3 +35,4 @@
 .App-link {
   color: #09d3ac;
 }
+

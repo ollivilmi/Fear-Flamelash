@@ -15,3 +15,6 @@ handlers:
     upload: client/build/index.html
   - url: /
     static_dir: client/build
+
+env_variables:
+  MONGO_DB: "mongodb+srv://admin:VITUNadmin666@guild-db-eml9b.gcp.mongodb.net/test?retryWrites=true&w=majority"
