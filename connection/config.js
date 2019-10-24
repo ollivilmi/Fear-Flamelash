@@ -6,7 +6,9 @@ module.exports = {
   options: {
     reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
     reconnectInterval: 1000, // Reconnect every 500ms
-    poolSize: 10 // Maintain up to 10 socket connections
+    poolSize: 10, // Maintain up to 10 socket connections
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   },
 
   connectDB: function() {

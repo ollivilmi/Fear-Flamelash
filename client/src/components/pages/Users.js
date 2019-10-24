@@ -3,26 +3,27 @@ import {getUsers, updateUser, createUser, deleteUser} from '../../actions/user';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import InputGroup from 'react-bootstrap/InputGroup'
-import FormControl from 'react-bootstrap/FormControl'
+import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 
-function Input ({title, buttonTitle}) {
+function Input ({title, buttonTitle, onClick, user}) {
+  const text = React.useRef()
+
   return (
     <InputGroup size="sm" className="mb-3">
       <InputGroup.Prepend>
         <InputGroup.Text id="inputGroup-sizing-sm">{title}</InputGroup.Text>
       </InputGroup.Prepend>
-      <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+      <Form.Control ref={text} aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
       <InputGroup.Append>
-        <Button variant="dark">{buttonTitle}</Button>
+        <Button variant="dark" onClick={() => onClick(text.current.value, user)}>{buttonTitle}</Button>
       </InputGroup.Append>
     </InputGroup>
   )
 }
 
-class List extends Component {
+class UserView extends Component {
   componentDidMount() {
     this.props.getUsers();
   }
@@ -34,31 +35,27 @@ class List extends Component {
       <div style={{margin: '0.5em 15em'}}>
         {users.length && (
           <Row style={{justifyContent: 'center'}}>
-            {this.props.users.map((user) => {
+            {users.map((user, index) => {
               return(
-                <Row style={{margin: 10}}>
-                  {user.name} {user.ep} {user.gp}
-                  <input type="text" name={user.name} />
-                  <button class="btn">
-                      Update
-                  </button>
+                <Row key={index} style={{margin: 10}}>
+                  <Input title={JSON.stringify(user)} user={user.name} buttonTitle="Update" onClick={updateUser}/>
                 </Row>
               );
             })}
           </Row>
         )}
         <Row>
-          <Input title="User" buttonTitle="Add"/>
+          <Input title="User" buttonTitle="Add" onClick={createUser}/>
         </Row>
         <Row>
-          <Input title="User" buttonTitle="Remove"/>
+          <Input title="User" buttonTitle="Delete" onClick={deleteUser}/>
         </Row>
       </div>
     );
   }
 }
 
-List.propTypes = {
+UserView.propTypes = {
   getUsers: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
 }
@@ -70,4 +67,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {getUsers},
-)(List);
+)(UserView);
