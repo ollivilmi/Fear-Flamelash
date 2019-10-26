@@ -6,7 +6,7 @@ const verifyToken = require('./security/token')
 router.get("/", (req, res, next) => {
     User.find(
       {},
-      'name ep gp',
+      null,
       {
         sort: { createdAt: -1 }
       },

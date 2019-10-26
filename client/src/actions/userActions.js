@@ -1,4 +1,4 @@
-import {USERS} from './types';
+import {FETCH_USERS} from './types';
 
 class User {
     constructor(name, ep, gp) {
@@ -13,7 +13,7 @@ export const getUsers = () => dispatch => {
     .then(res => res.json())
     .then(users => {
         dispatch({
-            type: USERS,
+            type: FETCH_USERS,
             payload: users,
         });
     })

@@ -10,14 +10,12 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy({
-    usernameField: 'name',
+    usernameField: 'email',
     passwordField: 'hash',
     passReqToCallback: true
   }, 
   function (req, name, hash, done) {
-    console.log("passport");
-
-    User.findOne({name: req.body.name, hash: req.body.hash}, (err, user) => {
+    User.findOne({email: req.body.email, hash: req.body.hash}, (err, user) => {
             if (err) return done(err);
             return done(null, user);
         });
@@ -44,8 +42,7 @@ passport.use(new GoogleStrategy({
         callbackURL: 'http://localhost:8080/api/auth/googleCallBack'
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log(profile);
-        User.findOneOrCreate({ googleId: profile.id, name: profile.displayName }, function (err, user) {
+        User.findOneOrCreate({ googleId: profile.id, email: profile.emails[0].value }, function (err, user) {
             if (err) return done(err);
             return done(null, user);
         });

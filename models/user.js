@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 let userSchema = new Schema(
     {
-        name: { type: String, unique: true },
+        name: { type: String },
         email: { type: String, unique: true },
         hash: { type: String },
         ep: { type: Number },
         gp: { type: Number },
-        googleId: { type: Number, unique: true }
+        googleId: { type: String, trim: true, index: true, unique: true, sparse: true }
     },
     {
         timestamps: true // createdAt, updatedAt automatically added

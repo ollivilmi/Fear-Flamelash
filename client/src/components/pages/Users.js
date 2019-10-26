@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {getUsers, updateUser, createUser, deleteUser} from '../../actions/user';
+import {getUsers, updateUser, createUser, deleteUser} from '../../actions/userActions';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+
 import InputGroup from 'react-bootstrap/InputGroup'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'

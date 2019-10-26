@@ -8,8 +8,8 @@ const connection = require("./connection/config");
 require('./routes/security/authentication')
 const passport    = require('passport');
 
-const userRoute = require("./routes/user");
-const authRoute = require("./routes/auth");
+const userRoute = require("./routes/userRoute");
+const authRoute = require("./routes/authRoute");
 
 connection.connectDB();
 
