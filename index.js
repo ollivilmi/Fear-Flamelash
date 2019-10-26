@@ -4,7 +4,12 @@ const bodyParser = require("body-parser");
 const app = express();
 const connection = require("./connection/config");
 
+// Initialize authentication strategies
+require('./routes/security/authentication')
+const passport    = require('passport');
+
 const userRoute = require("./routes/user");
+const authRoute = require("./routes/auth");
 
 connection.connectDB();
 
@@ -14,7 +19,9 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/api/user", userRoute);
+
+app.use("/api/user", passport.authenticate('jwt', {session: false}), userRoute);
+app.use("/api/auth", authRoute);
 
 // Handles any requests that don't match the ones above
 app.get('/*', (req,res) =>{

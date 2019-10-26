@@ -1,8 +1,7 @@
 const express = require("express");
 const User = require("../models/user");
 const router = express.Router();
-const jwt = require('jsonwebtoken')
-const verifyToken = require('./token')
+const verifyToken = require('./security/token')
 
 router.get("/", (req, res, next) => {
     User.find(
@@ -32,7 +31,7 @@ router.post("/", (req, res, next) => {
     });
 });
 
-router.delete("/", verifyToken, (req, res, next) => {
+router.delete("/", (req, res, next) => {
   User.deleteOne({ name: req.body.name }, (err) => {
     if (err) {
       return next(err);
@@ -53,28 +52,5 @@ router.put("/", (req, res, next) => {
     }
   });
 });
-
-router.post("/login", (req, res) => {
-  // testing
-  console.log(req.body);
-
-  User.findOne(
-    {name: req.body.name, hash: req.body.hash},
-    null,
-    (err, user) => {
-      if (err) {
-        res.status(400);
-      } else {
-        console.log(user);
-
-        jwt.sign({user}, process.env.JWT_SECRET, (err, token) => {
-          res.json({
-            token
-          });
-        });
-      }
-    }
-  );
-})
 
 module.exports = router;
