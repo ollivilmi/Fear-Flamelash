@@ -1,6 +1,6 @@
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
-const User = require("../../models/user");
+const User = require("../../models/userModel");
 
 const passportJWT = require("passport-jwt");
 const ExtractJWT = passportJWT.ExtractJwt;
@@ -27,8 +27,6 @@ passport.use(new JWTStrategy({
     secretOrKey : process.env.JWT_SECRET
 },
 function (token, done) {
-    console.log(token);
-
     User.findOne({name: token.name}, (err, user) => {
             if (err) return done(err);
             return done(null, user);

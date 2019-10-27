@@ -8,15 +8,16 @@ module.exports = {
     reconnectInterval: 1000, // Reconnect every 500ms
     poolSize: 10, // Maintain up to 10 socket connections
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
   },
 
-  connectDB: function() {
+  connect: function() {
     mongoose.connect(this.database, this.options);
   },
 
   // Disconnect connection with MongoDB Database
-  disconnectDB: function() {
+  disconnect: function() {
     mongoose.disconnect(this.database);
   }
 };

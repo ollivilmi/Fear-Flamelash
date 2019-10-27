@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require("body-parser");
 const app = express();
-const connection = require("./connection/config");
+const database = require("./database/config");
 
 // Initialize authentication strategies
 require('./routes/security/authentication')
@@ -11,7 +11,7 @@ const passport    = require('passport');
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 
-connection.connectDB();
+database.connect();
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -33,6 +33,6 @@ app.listen(8080);
 console.log('App is listening on port 8080');
 
 process.on("SIGINT", () => {
-    connection.disconnectDB();
+    database.disconnect();
     process.exit(0);
 });
