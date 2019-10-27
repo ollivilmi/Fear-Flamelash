@@ -7,15 +7,17 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 
-class Home extends Component {
+class LoginPage extends Component {
   render() {
     const email = React.createRef();
     const password = React.createRef();
 
     return (
 
-    <Row className="justify-content-md-center">
+    <Row style={{marginTop: "15em"}} className="justify-content-md-center">
+
       <Form>
+        <Form.Text><h1 class="header">Fear-Flamelash</h1></Form.Text>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control ref={email} type="email" placeholder="Enter email" />
@@ -38,16 +40,16 @@ class Home extends Component {
   }
 }
 
-Home.propTypes = {
+LoginPage.propTypes = {
   loginLocal: PropTypes.func.isRequired,
-  token: PropTypes.string
+  token: PropTypes.string,
 }
 
 const mapStateToProps = state => ({
-  token: state.user.token
+  token: state.user.token,
 });
 
 export default connect(
   mapStateToProps,
   {loginLocal},
-)(Home);
+)(LoginPage);

@@ -1,22 +1,19 @@
-import {FETCH_USERS, LOGIN} from '../actions/types';
-  
-  const initialState = {
-    token: '',
-    users: []
-  };
+import {LOGIN} from '../actions/types';
+
+const initialState = {
+  token: null,
+  profile: {}
+};
+
   
 export default function(state = initialState, action) {
     switch (action.type) {
-      case FETCH_USERS:
-        return {
-          ...state,
-          users: action.payload,
-        };
 
       case LOGIN:
         return {
           ...state,
-          token: action.payload,
+          token: action.payload.token,
+          profile: action.payload.user
         };
   
       default:

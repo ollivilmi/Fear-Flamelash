@@ -7,22 +7,26 @@ const jwt = require('jsonwebtoken')
 
 router.post("/",
   passport.authenticate('local', { session: false }), (req, res) => {
-    console.log(req.user);
-    jwt.sign({user: req.user}, process.env.JWT_SECRET, (err, token) => {
-      res.json({
-        token
-      });
+    token = jwt.sign({user: req.user}, process.env.JWT_SECRET);
+    res.json({
+      token,
+      user: req.user
     });
 })
 
 router.post("/register", (req, res, next) => {
   let user = new User(req.body);
-  user.save((err, newImport) => {
+  user.save((err, user) => {
     if (err) {
       console.log(err);
       res.status(400).send("Email already exists");
     } else {
-      res.status(200).send(newImport);
+      jwt.sign({user}, process.env.JWT_SECRET, (err, token) => {
+        res.json({
+          token,
+          user
+        });
+      });
     }
   });
 });
@@ -34,12 +38,10 @@ router.get('/google',
 router.get('/googleCallBack',
   passport.authenticate('google', { session: false }),
   (req, res) => {
-    console.log(req.user);
-
-    jwt.sign({user: req.user}, process.env.JWT_SECRET, (err, token) => {
-      res.json({
-        token
-      });
+    token = jwt.sign({user: req.user}, process.env.JWT_SECRET);
+    res.json({
+      token,
+      user: req.user
     });
 });
 
