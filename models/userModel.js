@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const autopopulate = require("mongoose-autopopulate");
 const Character = require("./characterModel");
+const autopopulate = require("mongoose-autopopulate");
 
 let userSchema = new Schema(
     {
@@ -10,11 +10,7 @@ let userSchema = new Schema(
         hash: { type: String },
         googleId: { type: String, trim: true, index: true, unique: true, sparse: true },
         role: { type: String, enum: ['user', 'admin'], default: 'user'},
-        character: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Character',
-            autopopulate: true
-        }
+        character: { type: Schema.Types.ObjectId, ref: 'Character', autopopulate: true }
     },
     {
         timestamps: true // createdAt, updatedAt automatically added
@@ -27,7 +23,5 @@ userSchema.statics.findOneOrCreate = function findOneOrCreate(condition, callbac
         return result ? callback(err, result) : self.create(condition, (err, result) => { return callback(err, result) })
     })
 }
-
-userSchema.plugin(autopopulate);
 
 module.exports = mongoose.model("User", userSchema);

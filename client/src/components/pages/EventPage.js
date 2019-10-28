@@ -2,34 +2,36 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
+import { Calendar, momentLocalizer  } from 'react-big-calendar';
+import moment from 'moment';
 import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
 
 class EventPage extends Component {
   componentDidMount() {
   }
 
   render() {
-    const user = this.props.user.profile
+    const localizer = momentLocalizer(moment);
+    const raidStart = moment().add(1, 'days');
+    const raidEnd = raidStart.add(4, 'hours');
+
+    const myEvents = [
+      {
+        title: "Molten Core",
+        start: raidStart,
+        end: raidEnd,
+      }
+    ]
 
     return (
       <Row>
-        <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>Created</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{user.email}</td>
-            <td>{user.createdAt}</td>
-            <td>{user.role}</td>
-          </tr>
-        </tbody>
-        </Table>
+        <Calendar
+          localizer={localizer}
+          events={myEvents}
+          startAccessor="start"
+          endAccessor="end"
+          style={{height: 500, width: "100%"}}
+        />
       </Row>
     );
   }

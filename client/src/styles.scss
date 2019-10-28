@@ -1,15 +1,19 @@
 @import '~csstyle/csstyle';
 @import '~bootstrap/scss/bootstrap.scss';
 
-.appContainer {
+.bg-darkish {
   background-color: #202020;
+}
+
+.appContainer {
+  @extend .bg-darkish;
   color: white;
   margin: 0 10em;
   padding: 0 2em;
 }
 
 .app {
-  background-color: #202020;
+  @extend .bg-darkish;
   color: white;
 }
 
@@ -30,3 +34,20 @@
 .activeNav {
   font-weight: bold;
 }
+
+$out-of-range-bg-color: lighten(#343a40, 2%);
+$calendar-border: darken(#000, 10%);
+$cell-border: #000;
+$today-highlight-bg: darken(#202020, 3%);
+
+$time-selection-bg-color: #343a40;
+
+$event-bg: #FFF;
+$event-border: lighten(#000, 10%);
+$event-color: #000;
+
+$btn-border: #000;
+$btn-bg: #2c2c2c;
+$btn-color: #FFF;
+
+@import 'react-big-calendar/lib/sass/styles';

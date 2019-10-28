@@ -19,7 +19,7 @@ class AppContainer extends Component {
 
         if (this.props.token) return (
         <>
-            <Navbar expand="md" variant="dark" bg="dark" >
+            <Navbar expand="sm" variant="dark" bg="dark" style={{border: "1px solid #000"}} >
                 <Navbar.Brand>
                     <NavLink className="nav" exact to="/" activeClassName="activeNav">Calendar</NavLink>
                 </Navbar.Brand >
@@ -27,7 +27,7 @@ class AppContainer extends Component {
                     <NavLink className="nav" exact to="/epgp" activeClassName="activeNav">EPGP</NavLink>
                 </Nav.Link>
                 <Navbar.Collapse className="justify-content-end">
-                    <Nav.Link className="nav" href="/">Log out</Nav.Link>
+                    <Nav.Link className="nav" href="/" onClick={() => {localStorage.clear()}}>Log out</Nav.Link>
                 </Navbar.Collapse>
              </Navbar>
             <Container style={{justifyContent: 'center', marginTop: "2em"}}>
