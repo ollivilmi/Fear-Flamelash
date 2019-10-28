@@ -11,7 +11,7 @@ const passport    = require('passport');
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 
-database.connect();
+database.connect(process.env.MONGO_DB);
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
