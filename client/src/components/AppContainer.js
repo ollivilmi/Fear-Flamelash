@@ -11,6 +11,9 @@ import Nav from 'react-bootstrap/Nav';
 
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import { GoCalendar } from "react-icons/go";
+import { FaDragon } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
 
 class AppContainer extends Component {
     render() {
@@ -21,13 +24,19 @@ class AppContainer extends Component {
         <>
             <Navbar expand="sm" variant="dark" bg="dark" style={{border: "1px solid #000"}} >
                 <Navbar.Brand>
-                    <NavLink className="nav" exact to="/" activeClassName="activeNav">Calendar</NavLink>
+                    <NavLink className="nav" exact to="/" activeClassName="activeNav">
+                        <GoCalendar style={{margin: "0.25em 0.5em"}} />Calendar
+                    </NavLink>
                 </Navbar.Brand >
                 <Nav.Link>
-                    <NavLink className="nav" exact to="/epgp" activeClassName="activeNav">EPGP</NavLink>
+                    <NavLink className="nav" exact to="/epgp" activeClassName="activeNav">
+                        <FaDragon style={{margin: "0.25em 0.5em"}} />EPGP
+                    </NavLink>
                 </Nav.Link>
                 <Navbar.Collapse className="justify-content-end">
-                    <Nav.Link className="nav" href="/" onClick={() => {localStorage.clear()}}>Log out</Nav.Link>
+                    <Nav.Link className="nav" href="/" onClick={() => {localStorage.clear()}}>
+                        <IoIosLogOut /> Logout
+                    </Nav.Link>
                 </Navbar.Collapse>
              </Navbar>
             <Container style={{justifyContent: 'center', marginTop: "2em"}}>

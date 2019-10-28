@@ -18,6 +18,10 @@ export const loginLocal = (email, hash) => dispatch => {
     .catch(e => console.log(e));
 }
 
+export const loginGoogle = () => {
+    
+}
+
 export const registerLocal = (email, hash) => dispatch => {
     return fetch('/api/auth/register', {
         method: 'POST',
