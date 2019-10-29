@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {loginLocal} from '../../actions/authActions';
+import {loginLocal, loginGoogle} from '../../actions/authActions';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -15,6 +15,11 @@ class LoginPage extends Component {
   render() {
     const email = React.createRef();
     const password = React.createRef();
+
+    this.props.loginGoogle(this.props.location.search);
+
+    // console.log(this.props.location.search);
+    // console.log(queryString.parse(this.props.location.search));
 
     return (
 
@@ -35,22 +40,27 @@ class LoginPage extends Component {
           <Form.Control ref={password} type="password" placeholder="Password" />
         </Form.Group>
         <Form.Text className="text-muted">
-            New user? Login and your account will be created.
+            Register
         </Form.Text>
         
         <Col style={{marginTop: "1em"}}>
-          <Button onClick={() => this.props.loginLocal(email.current.value, password.current.value)} variant="dark" block>
+          <Button onClick={() => {
+            this.props.loginLocal(email.current.value, password.current.value)
+            // fix this garbage asap...
+            this.props.history.push(`/events`)
+          }
+          } variant="dark" block>
             Login < IoIosLogIn/>
           </Button>
         </Col>
         <Col style={{marginTop: "1em"}}>
-          <Button variant="dark" block>
-            Login with Google < IoLogoGoogle/>
-          </Button>
+          <a href="/api/auth/google">
+            <Button variant="dark" block>
+              Login with Google < IoLogoGoogle/>
+            </Button>
+          </a>
         </Col>
       </Form>
-
-      {this.props.token}
     </Row>
     );
   }
@@ -58,6 +68,7 @@ class LoginPage extends Component {
 
 LoginPage.propTypes = {
   loginLocal: PropTypes.func.isRequired,
+  loginGoogle: PropTypes.func.isRequired,
   token: PropTypes.string,
 }
 
@@ -67,5 +78,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {loginLocal},
+  {loginLocal,loginGoogle},
 )(LoginPage);

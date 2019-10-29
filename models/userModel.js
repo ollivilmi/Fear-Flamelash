@@ -5,11 +5,10 @@ const autopopulate = require("mongoose-autopopulate");
 
 let userSchema = new Schema(
     {
-        name: { type: String },
         email: { type: String, unique: true },
         hash: { type: String },
         googleId: { type: String, trim: true, index: true, unique: true, sparse: true },
-        role: { type: String, enum: ['user', 'admin'], default: 'user'},
+        role: { type: String, enum: ['none', 'member', 'admin'], default: 'none'},
         character: { type: Schema.Types.ObjectId, ref: 'Character', autopopulate: true }
     },
     {

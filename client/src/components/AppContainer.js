@@ -4,6 +4,7 @@ import { Route, Switch, NavLink } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import EventPage from './pages/EventPage';
 import PointsPage from './pages/PointsPage';
+import ProfilePage from './pages/PointsPage';
 
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,26 +12,30 @@ import Nav from 'react-bootstrap/Nav';
 
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { GoCalendar } from "react-icons/go";
+import { GoCalendar, GoPerson } from "react-icons/go";
 import { FaDragon } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 
 class AppContainer extends Component {
     render() {
-        console.log(this.props.token);
-        console.log(this.props.profile);
+        const margin = {margin: "0.25em 0.5em"}
 
         if (this.props.token) return (
         <>
             <Navbar expand="sm" variant="dark" bg="dark" style={{border: "1px solid #000"}} >
                 <Navbar.Brand>
-                    <NavLink className="nav" exact to="/" activeClassName="activeNav">
-                        <GoCalendar style={{margin: "0.25em 0.5em"}} />Calendar
+                    <NavLink className="nav" exact to="/events" activeClassName="activeNav">
+                        <GoCalendar style={margin} />Calendar
                     </NavLink>
                 </Navbar.Brand >
                 <Nav.Link>
                     <NavLink className="nav" exact to="/epgp" activeClassName="activeNav">
-                        <FaDragon style={{margin: "0.25em 0.5em"}} />EPGP
+                        <FaDragon style={margin} />EPGP
+                    </NavLink>
+                </Nav.Link>
+                <Nav.Link>
+                    <NavLink className="nav" exact to="/profile" activeClassName="activeNav">
+                        <GoPerson style={margin} />Profile
                     </NavLink>
                 </Nav.Link>
                 <Navbar.Collapse className="justify-content-end">
@@ -41,14 +46,15 @@ class AppContainer extends Component {
              </Navbar>
             <Container style={{justifyContent: 'center', marginTop: "2em"}}>
                 <Switch>
-                    <Route exact path='/' component={EventPage}/>
-                    <Route path='/epgp' component={PointsPage}/>
+                    <Route exact path='/events' component={EventPage}/>
+                    <Route exact path='/epgp' component={PointsPage}/>
+                    <Route exact path='/profile' component={ProfilePage}/>
                 </Switch>
             </Container>
         </>
         )
 
-        return <LoginPage />
+        return <Route exact path="/" component={LoginPage} />
     }
 }
 

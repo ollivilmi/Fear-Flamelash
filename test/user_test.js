@@ -1,14 +1,9 @@
 const assert = require('assert')
 const User = require("../models/userModel");
 const Character = require("../models/characterModel");
-const database = require("../database/config");
 
-describe('Creates a user in users collection', () => {
+describe('Users CRUD tests', () => {
     let testUser;
-
-    before(() => {
-        database.connect(process.env.MONGO_DB_TEST);
-    })
 
     beforeEach(async() => {
         await User.deleteMany();
@@ -17,10 +12,6 @@ describe('Creates a user in users collection', () => {
         testUser = new User({email: "testEmail@gmail.com", hash: "test"});
         return testUser.save();
     });
-
-    after(() => {
-        database.disconnect();
-    })
 
     it('Finds user by id', async() => {
         user = await User.findOne({_id: testUser._id})

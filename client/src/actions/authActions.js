@@ -1,4 +1,5 @@
 import {LOGIN} from './types';
+import queryString from 'query-string';
 
 export const loginLocal = (email, hash) => dispatch => {
     return fetch('/api/auth', {
@@ -18,8 +19,18 @@ export const loginLocal = (email, hash) => dispatch => {
     .catch(e => console.log(e));
 }
 
-export const loginGoogle = () => {
-    
+export const loginGoogle = search => dispatch => {
+  if (Object.keys(search).length === 0) {
+      return
+  }
+
+  const login = queryString.parse(search);
+  console.log(login);
+
+  dispatch({
+    type: LOGIN,
+    payload: {token: login.token, user: login.user}
+  });
 }
 
 export const registerLocal = (email, hash) => dispatch => {

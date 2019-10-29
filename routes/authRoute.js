@@ -5,12 +5,14 @@ const User = require("../models/userModel");
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
+const url = require('url');    
+
 router.post("/",
   passport.authenticate('local', { session: false }), (req, res) => {
     token = jwt.sign({user: req.user}, process.env.JWT_SECRET);
     res.json({
       token,
-      user: req.user
+      profile: req.user
     });
 })
 
@@ -24,7 +26,7 @@ router.post("/register", (req, res, next) => {
       jwt.sign({user}, process.env.JWT_SECRET, (err, token) => {
         res.json({
           token,
-          user
+          profile: user
         });
       });
     }
@@ -39,10 +41,15 @@ router.get('/googleCallBack',
   passport.authenticate('google', { session: false }),
   (req, res) => {
     token = jwt.sign({user: req.user}, process.env.JWT_SECRET);
-    res.json({
-      token,
-      user: req.user
-    });
+
+    res.redirect(url.format({
+      pathname:"/",
+      query: {
+         "token": token,
+         "profile": JSON.stringify(req.user),
+       }
+      })
+    );
 });
 
 

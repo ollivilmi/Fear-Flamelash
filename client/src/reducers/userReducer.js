@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
         return {
           ...state,
           token: action.payload.token,
-          profile: action.payload.user
+          profile: action.payload.profile
         };
   
       default:
