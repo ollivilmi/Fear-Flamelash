@@ -35,7 +35,7 @@ passport.use(new JWTStrategy({
 },
 function (token, done) {
     User.findOne({name: token.name}, (err, user) => {
-            if (err) return done(err);
+            if (err || user.role === 'none') return done(err);
             return done(null, user);
         });
     }
@@ -44,7 +44,7 @@ function (token, done) {
 passport.use(new GoogleStrategy({
         clientID: process.env.GCLIENT_ID,
         clientSecret: process.env.GCLIENT_SECRET,
-        callbackURL: 'http://localhost:8080/api/auth/googleCallBack'
+        callbackURL: process.env.GCALLBACK
     },
     function(accessToken, refreshToken, profile, done) {
         User.findOneOrCreate({ googleId: profile.id, email: profile.emails[0].value }, function (err, user) {

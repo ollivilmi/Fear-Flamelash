@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import EventPage from './pages/EventPage';
 import PointsPage from './pages/PointsPage';
-import ProfilePage from './pages/PointsPage';
+import ProfilePage from './pages/ProfilePage';
 
 import Container from 'react-bootstrap/Container';
 import {connect} from 'react-redux';

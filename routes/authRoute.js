@@ -57,5 +57,17 @@ router.get('/googleCallBack',
     );
 });
 
+router.post("/referral", async (req, res) => {
+  if (req.body.referral !== process.env.MEMBER_REFERRAL) {
+    return res.status(400).json({message: "Invalid referral"});
+  }
+
+  user = await User.findByIdAndUpdate(req.body.id,{role: "member"});
+    
+  if (user.nModified === 0) {
+    return res.status(400).json({messsage: "Error: could not update user"});
+  }
+  return res.status(200).json({message: "User promoted to member"});
+});
 
 module.exports = router;

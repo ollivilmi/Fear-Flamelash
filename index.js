@@ -8,9 +8,6 @@ const database = require("./database/config");
 require('./routes/security/authentication')
 const passport    = require('passport');
 
-const userRoute = require("./routes/userRoute");
-const authRoute = require("./routes/authRoute");
-
 database.connect(process.env.MONGO_DB);
 
 // Serve the static files from the React app
@@ -19,9 +16,10 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
-app.use("/api/user", passport.authenticate('jwt', {session: false}), userRoute);
-app.use("/api/auth", authRoute);
+app.use("/api/auth", require("./routes/authRoute"));
+app.use("/api/user", passport.authenticate('jwt', {session: false}), require("./routes/userRoute"));
+app.use("/api/character", passport.authenticate('jwt', {session: false}), require("./routes/charRoute"));
+app.use("/api/event", passport.authenticate('jwt', {session: false}), require("./routes/eventRoute"));
 
 // Handles any requests that don't match the ones above
 app.get('/*', (req,res) =>{

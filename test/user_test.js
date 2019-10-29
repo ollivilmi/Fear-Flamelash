@@ -9,7 +9,7 @@ describe('Users CRUD tests', () => {
         await User.deleteMany();
         await Character.deleteMany();
 
-        testUser = new User({email: "testEmail@gmail.com", hash: "test"});
+        testUser = new User({email: "testEmail@gmail.com", password: "test"});
         return testUser.save();
     });
 

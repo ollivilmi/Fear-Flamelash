@@ -2,7 +2,7 @@ import {LOGIN} from '../actions/types';
 
 const initialState = {
   token: localStorage.getItem('token'),
-  profile: localStorage.getItem('profile')
+  profile: JSON.parse(localStorage.getItem('profile'))
 };
 
   
@@ -11,7 +11,7 @@ export default function(state = initialState, action) {
 
       case LOGIN:
         localStorage.setItem("token", action.payload.token)
-        localStorage.setItem("profile", action.payload.profile)
+        localStorage.setItem("profile", JSON.stringify(action.payload.profile))
         
         return {
           ...state,

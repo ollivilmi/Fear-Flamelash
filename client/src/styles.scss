@@ -5,6 +5,12 @@
   background-color: #202020;
 }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
 .appContainer {
   @extend .bg-darkish;
   color: white;
