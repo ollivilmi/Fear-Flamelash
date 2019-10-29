@@ -1,11 +1,11 @@
 const express = require("express");
-const User = require("../models/user");
+const User = require("../models/userModel");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
     User.find(
       {},
-      'name ep gp',
+      null,
       {
         sort: { createdAt: -1 }
       },
@@ -23,7 +23,6 @@ router.post("/", (req, res, next) => {
     let user = new User(req.body);
     user.save((err, newImport) => {
       if (err) {
-        console.log("Failed to post new user because ", err);
         return next(err);
       } else {
         res.status(200).send(newImport);
@@ -34,7 +33,6 @@ router.post("/", (req, res, next) => {
 router.delete("/", (req, res, next) => {
   User.deleteOne({ name: req.body.name }, (err) => {
     if (err) {
-      console.log("Failed delete user because ", err);
       return next(err);
     } else {
       res.status(200).send('deleted ' + req.body.name);
@@ -47,7 +45,6 @@ router.put("/", (req, res, next) => {
 
   User.updateOne({ name: user.name },{ ep: user.ep, gp: user.gp }, (err) => {
     if (err) {
-      console.log("Failed to update user because ", err);
       return next(err);
     } else {
       res.status(200).send('Updated ' + user.name);

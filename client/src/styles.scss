@@ -1,11 +1,53 @@
 @import '~csstyle/csstyle';
 @import '~bootstrap/scss/bootstrap.scss';
 
-.App {
-  text-align: center;
+.bg-darkish {
+  background-color: #202020;
 }
 
-.App-link {
-  color: #09d3ac;
+.appContainer {
+  @extend .bg-darkish;
+  color: white;
+  margin: 0 10em;
+  padding: 0 2em;
 }
 
+.app {
+  @extend .bg-darkish;
+  color: white;
+}
+
+.header {
+  text-align: 'center';
+  margin: "1em 0";
+  font-size: 20;
+  font-weight: "bold";
+}
+
+.nav {
+  color: #ffffffff;
+  &:hover {
+    color: #ffffffec;
+  }
+}
+
+.activeNav {
+  font-weight: bold;
+}
+
+$out-of-range-bg-color: lighten(#343a40, 2%);
+$calendar-border: darken(#000, 10%);
+$cell-border: #000;
+$today-highlight-bg: darken(#202020, 3%);
+
+$time-selection-bg-color: #343a40;
+
+$event-bg: #FFF;
+$event-border: lighten(#000, 10%);
+$event-color: #000;
+
+$btn-border: rgb(0, 0, 0);
+$btn-bg: #0e0e0e;
+$btn-color: #FFF;
+
+@import 'react-big-calendar/lib/sass/styles';

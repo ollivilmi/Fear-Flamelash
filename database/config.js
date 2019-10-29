@@ -1,22 +1,21 @@
 const mongoose = require("mongoose");
 
 module.exports = {
-  database: process.env.MONGO_DB,
-
   options: {
     reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
     reconnectInterval: 1000, // Reconnect every 500ms
     poolSize: 10, // Maintain up to 10 socket connections
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
   },
 
-  connectDB: function() {
-    mongoose.connect(this.database, this.options);
+  connect: function(database) {
+    mongoose.connect(database, this.options);
   },
 
   // Disconnect connection with MongoDB Database
-  disconnectDB: function() {
+  disconnect: function() {
     mongoose.disconnect(this.database);
   }
 };
