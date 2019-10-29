@@ -21,16 +21,17 @@ export const loginLocal = (email, hash) => dispatch => {
 
 export const loginGoogle = search => dispatch => {
   if (Object.keys(search).length === 0) {
-      return
+      return false
   }
 
   const login = queryString.parse(search);
-  console.log(login);
 
   dispatch({
     type: LOGIN,
-    payload: {token: login.token, user: login.user}
+    payload: {token: login.token, profile: JSON.parse(login.profile)}
   });
+
+  return true
 }
 
 export const registerLocal = (email, hash) => dispatch => {
@@ -43,10 +44,7 @@ export const registerLocal = (email, hash) => dispatch => {
     })
     .then(res => res.json())
     .then(json => {
-        dispatch({
-            type: LOGIN,
-            payload: json,
-        });
+        return json.message;
     })
-    .catch(e => console.log(e));
+    .catch(e => {return e});
 }

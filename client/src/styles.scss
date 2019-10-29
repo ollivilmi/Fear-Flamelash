@@ -46,8 +46,8 @@ $event-bg: #FFF;
 $event-border: lighten(#000, 10%);
 $event-color: #000;
 
-$btn-border: #000;
-$btn-bg: #2c2c2c;
+$btn-border: rgb(0, 0, 0);
+$btn-bg: #0e0e0e;
 $btn-color: #FFF;
 
 @import 'react-big-calendar/lib/sass/styles';

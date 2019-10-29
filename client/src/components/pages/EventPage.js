@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 
 import { Calendar, momentLocalizer  } from 'react-big-calendar';
 import moment from 'moment';
+
+import NavigationBar from '../NavigationBar';
 import Row from 'react-bootstrap/Row';
 
 class EventPage extends Component {
@@ -18,21 +20,25 @@ class EventPage extends Component {
     const myEvents = [
       {
         title: "Molten Core",
-        start: raidStart,
-        end: raidEnd,
+        start: new Date(raidStart),
+        end: new Date(raidEnd),
+        allDay: false
       }
     ]
 
     return (
-      <Row>
-        <Calendar
-          localizer={localizer}
-          events={myEvents}
-          startAccessor="start"
-          endAccessor="end"
-          style={{height: 500, width: "100%"}}
-        />
-      </Row>
+      <>
+        <NavigationBar />
+        <Row>
+          <Calendar
+            localizer={localizer}
+            events={myEvents}
+            startAccessor="start"
+            endAccessor="end"
+            style={{height: 500, width: "100%"}}
+          />
+        </Row>
+      </>
     );
   }
 }

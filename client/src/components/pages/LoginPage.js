@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {loginLocal, loginGoogle} from '../../actions/authActions';
+import {loginLocal, loginGoogle, registerLocal} from '../../actions/authActions';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -10,61 +10,65 @@ import Col from 'react-bootstrap/Col'
 
 import { IoIosLogIn, IoLogoGoogle } from "react-icons/io";
 import { FiMail, FiKey } from "react-icons/fi";
+import { FaSkull } from "react-icons/fa"
+
+import Registration from "./Registration";
+
 
 class LoginPage extends Component {
   render() {
-    const email = React.createRef();
-    const password = React.createRef();
+    const loginEmail = React.createRef();
+    const loginPassword = React.createRef();
+    const buttonMargin = {marginTop: "1em"}
 
-    this.props.loginGoogle(this.props.location.search);
-
-    // console.log(this.props.location.search);
-    // console.log(queryString.parse(this.props.location.search));
+    // If we have login parameters, redirect to events page
+    if (this.props.loginGoogle(this.props.location.search) || this.props.token) {
+      this.props.history.push(`/events`)
+    };
 
     return (
 
-    <Row style={{marginTop: "15em"}} className="justify-content-md-center">
-
+    <Row style={{marginTop: "5em"}} className="justify-content-md-center">
       <Form>
-        <Form.Text><h1 className="header">Fear-Flamelash</h1></Form.Text>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label><FiMail/> Email address</Form.Label>
-          <Form.Control ref={email} type="email" placeholder="Enter email" />
+        <Form.Text><h1 className="header">Fear-Flamelash <FaSkull/></h1></Form.Text>
+        <Form.Group controlId="loginEmail">
+          <Form.Label><FiMail/> Email</Form.Label>
+          <Form.Control ref={loginEmail} type="email" placeholder="Enter email" />
           <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
+            We'll never share your email.
           </Form.Text>
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group controlId="loginPassword">
           <Form.Label><FiKey/> Password</Form.Label>
-          <Form.Control ref={password} type="password" placeholder="Password" />
+          <Form.Control ref={loginPassword} type="password" placeholder="Password" />
         </Form.Group>
         <Form.Text className="text-muted">
-            Register
+            We don't know your password.
         </Form.Text>
         
-        <Col style={{marginTop: "1em"}}>
-          <Button onClick={() => {
-            this.props.loginLocal(email.current.value, password.current.value)
-            // fix this garbage asap...
-            this.props.history.push(`/events`)
-          }
-          } variant="dark" block>
+        <Col style={buttonMargin}>
+          <Button onClick={() => this.props.loginLocal(loginEmail.current.value, loginPassword.current.value)} variant="dark" block>
             Login < IoIosLogIn/>
           </Button>
         </Col>
-        <Col style={{marginTop: "1em"}}>
+        <Col style={buttonMargin}>
           <a href="/api/auth/google">
             <Button variant="dark" block>
               Login with Google < IoLogoGoogle/>
             </Button>
           </a>
         </Col>
+        <Col style={buttonMargin}>
+          <Registration register={this.props.registerLocal}/>
+        </Col>
       </Form>
     </Row>
     );
   }
 }
+
+
 
 LoginPage.propTypes = {
   loginLocal: PropTypes.func.isRequired,
@@ -78,5 +82,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {loginLocal,loginGoogle},
+  {loginLocal,loginGoogle,registerLocal},
 )(LoginPage);

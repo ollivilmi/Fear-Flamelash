@@ -16,8 +16,8 @@ const characterSchema = new Schema(
                 'priest', 
                 'druid', 
                 'shaman'
-        ]},
-        role: { type: String, enum: ['tank', 'healer', 'melee', 'ranged'] },
+        ], required: true},
+        role: { type: String, enum: ['tank', 'healer', 'melee', 'ranged'], required: true },
     }
 )
 

@@ -21,13 +21,10 @@ router.post("/register", (req, res, next) => {
   user.save((err, user) => {
     if (err) {
       console.log(err);
-      res.status(400).send("Email already exists");
+      res.status(400).json({message: "Email already exists"});
     } else {
       jwt.sign({user}, process.env.JWT_SECRET, (err, token) => {
-        res.json({
-          token,
-          profile: user
-        });
+        res.status(200).json({message: "User created!"});
       });
     }
   });

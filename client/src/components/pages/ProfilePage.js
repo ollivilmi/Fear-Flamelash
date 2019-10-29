@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import Table from 'react-bootstrap/Table';
 import Row from 'react-bootstrap/Row';
+import NavigationBar from '../NavigationBar';
 
 class ProfilePage extends Component {
   componentDidMount() {
@@ -13,24 +14,27 @@ class ProfilePage extends Component {
     const user = this.props.user.profile
 
     return (
-      <Row>
-        <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>Created</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{user.email}</td>
-            <td>{user.createdAt}</td>
-            <td>{user.role}</td>
-          </tr>
-        </tbody>
-        </Table>
-      </Row>
+      <>
+        <NavigationBar/>
+        <Row>
+          <Table striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Created</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{user.email}</td>
+              <td>{user.createdAt}</td>
+              <td>{user.role}</td>
+            </tr>
+          </tbody>
+          </Table>
+        </Row>
+      </>
     );
   }
 }
