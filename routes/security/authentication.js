@@ -1,5 +1,4 @@
 const passport = require('passport')
-const jwt = require('jsonwebtoken')
 const User = require("../../models/userModel");
 
 const passportJWT = require("passport-jwt");
@@ -9,16 +8,24 @@ const JWTStrategy   = passportJWT.Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 
+const bcrypt = require('bcrypt');
+
 passport.use(new LocalStrategy({
     usernameField: 'email',
-    passwordField: 'hash',
+    passwordField: 'password',
     passReqToCallback: true
   }, 
-  function (req, name, hash, done) {
-    User.findOne({email: req.body.email, hash: req.body.hash}, (err, user) => {
-            if (err) return done(err);
+  async function (req, name, password, done) {
+        user = await User.findOne({email: req.body.email});
+        if (!user) return done("email not found");
+
+        match = await bcrypt.compare(req.body.password, user.hash);
+
+        if (!match) {
+            return done("invalid password")
+        } else {
             return done(null, user);
-        });
+        }
     }
 ));
 

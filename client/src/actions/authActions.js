@@ -1,10 +1,10 @@
 import {LOGIN} from './types';
 import queryString from 'query-string';
 
-export const loginLocal = (email, hash) => dispatch => {
+export const loginLocal = (email, password) => dispatch => {
     return fetch('/api/auth', {
         method: 'POST',
-        body: JSON.stringify({email, hash}),
+        body: JSON.stringify({email, password}),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -34,10 +34,10 @@ export const loginGoogle = search => dispatch => {
   return true
 }
 
-export const registerLocal = (email, hash) => dispatch => {
+export const registerLocal = (email, password) => dispatch => {
     return fetch('/api/auth/register', {
         method: 'POST',
-        body: JSON.stringify({email, hash}),
+        body: JSON.stringify({email, password}),
         headers: {
             'Content-Type': 'application/json'
         }

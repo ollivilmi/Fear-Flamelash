@@ -8,7 +8,7 @@ let userSchema = new Schema(
         email: { type: String, unique: true },
         hash: { type: String },
         googleId: { type: String, trim: true, index: true, unique: true, sparse: true },
-        role: { type: String, enum: ['none', 'member', 'admin'], default: 'none'},
+        role: { type: String, enum: ['none', 'member', 'admin'], default: 'none', required: true},
         character: { type: Schema.Types.ObjectId, ref: 'Character', autopopulate: true }
     },
     {

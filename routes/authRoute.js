@@ -5,7 +5,9 @@ const User = require("../models/userModel");
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
-const url = require('url');    
+const url = require('url');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 router.post("/",
   passport.authenticate('local', { session: false }), (req, res) => {
@@ -16,8 +18,14 @@ router.post("/",
     });
 })
 
-router.post("/register", (req, res, next) => {
-  let user = new User(req.body);
+router.post("/register", async(req, res, next) => {
+  const hash = await bcrypt.hash(req.body.password, saltRounds);
+
+  let user = new User({
+    email: req.body.email,
+    hash,
+    role: 'none'
+  });
   user.save((err, user) => {
     if (err) {
       console.log(err);

@@ -1,7 +1,6 @@
 const express = require("express");
 const User = require("../models/userModel");
 const router = express.Router();
-const verifyToken = require('./security/token')
 
 router.get("/", (req, res, next) => {
     User.find(
