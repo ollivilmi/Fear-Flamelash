@@ -14,7 +14,11 @@ router.post("/",
     token = jwt.sign({user: req.user}, process.env.JWT_SECRET);
     res.json({
       token,
-      profile: req.user
+      profile: {
+        email: req.user.email,
+        role: req.user.role,
+        id: req.user._id,
+      }
     });
 })
 
@@ -51,7 +55,11 @@ router.get('/googleCallBack',
       pathname:"/",
       query: {
          "token": token,
-         "profile": JSON.stringify(req.user),
+         "profile": JSON.stringify({
+          email: req.user.email,
+          role: req.user.role,
+          id: req.user._id,
+        }),
        }
       })
     );
@@ -67,7 +75,7 @@ router.post("/referral", async (req, res) => {
   if (user.nModified === 0) {
     return res.status(400).json({messsage: "Error: could not update user"});
   }
-  return res.status(200).json({message: "User promoted to member"});
+  return res.status(200).json({message: "User promoted", role: user.role});
 });
 
 module.exports = router;

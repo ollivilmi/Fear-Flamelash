@@ -1,4 +1,4 @@
-import {LOGIN} from './types';
+import {LOGIN, UPDATE_USER} from './types';
 import queryString from 'query-string';
 
 export const loginLocal = (email, password) => dispatch => {
@@ -47,4 +47,34 @@ export const registerLocal = (email, password) => dispatch => {
         return json.message;
     })
     .catch(e => {return e});
+}
+
+export const sendReferral = (id, referral) => {
+    return fetch('/api/auth/referral', {
+        method: 'POST',
+        body: JSON.stringify({referral, id}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(json => {
+        return json.message;
+    })
+    .catch(e => console.log(e));
+}
+
+export const updateUserInfo = token => dispatch => {
+    return fetch('/api/user/', {
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    }).then(res => res.json())
+    .then(user => {
+        console.log(user);
+        dispatch({
+            type: UPDATE_USER,
+            payload: user
+        })
+    })
 }

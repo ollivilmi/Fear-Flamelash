@@ -20,4 +20,13 @@ router.delete("/linkCharacter", async (req,res) => {
   });
 })
 
+router.get("/", async (req,res) => {
+  res.json({
+      email: req.user.email,
+      role: req.user.role,
+      id: req.user._id,
+  });
+});
+
+
 module.exports = router;

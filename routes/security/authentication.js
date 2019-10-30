@@ -31,13 +31,15 @@ passport.use(new LocalStrategy({
 
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey : process.env.JWT_SECRET
+    secretOrKey : process.env.JWT_SECRET,
 },
-function (token, done) {
-    User.findOne({name: token.name}, (err, user) => {
-            if (err || user.role === 'none') return done(err);
-            return done(null, user);
-        });
+async function (token, done) {
+        const user = await User.findById(token.user._id);
+
+        if (!user || user.role === 'none'){
+            return done("user not found");
+        }
+        return done(null, user);
     }
 ));
   

@@ -1,2 +1,2 @@
-export const FETCH_USERS = 'USERS';
+export const UPDATE_USER = 'UPDATE_USER';
 export const LOGIN = 'LOGIN';
