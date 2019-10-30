@@ -1,39 +1,78 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-
-import Col from 'react-bootstrap/Col';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
-
-import NavigationBar from '../NavigationBar';
 import {sendReferral, updateUserInfo} from '../../actions/authActions';
 
-function Referral({userId, sendReferral, updateUserInfo}) {
-  const code = React.useRef();
+import Col from 'react-bootstrap/Col';
+
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
+
+import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
+import NavigationBar from '../NavigationBar';
+import Referral from '../functional/Referral';
+
+function CharacterCreation({token, createCharacter}) {
+  const classes = [
+    "warrior", "rogue", "mage", "warlock", "druid", "shaman", "priest", "hunter"
+  ]
+
+  const roles = [
+    "tank", "healer", "melee", "ranged"
+  ]
+
+  const [role, setRole] = React.useState("tank");
+  const [charClass, setCharClass] = React.useState("warrior");
 
   return (
-    <>
-      <p>You are not a member. Send referral code from guild info to become one.</p>
+    <div className="my-auto">
       <InputGroup className="mb-3">
         <InputGroup.Prepend>
-          <InputGroup.Text className="app" id="referralCode">Referral code</InputGroup.Text>
+          <InputGroup.Text className="app" id="charName">Name</InputGroup.Text>
         </InputGroup.Prepend>
-        <FormControl
-          placeholder="insert here"
-          aria-describedby="referralCode"
-          ref={code}
+        <Form.Control
+          required
+          type="text"
+          placeholder="Enter name"
         />
+
         <InputGroup.Append>
-          <Button 
-            onClick={() => sendReferral(userId, code.current.value).then(updateUserInfo)} 
-            variant="dark">
-            Submit
-          </Button>
+          <DropdownButton
+                as={InputGroup.Prepend}
+                variant="outline-secondary"
+                id="charRole"
+                title={role}
+                onSelect={selectedRole => setRole(selectedRole)}
+                value={role}
+              >
+                {roles.map(role => (
+                  <Dropdown.Item eventKey={role}>{role}</Dropdown.Item>
+                ))
+                }
+            </DropdownButton>
+            <DropdownButton
+              as={InputGroup.Prepend}
+              variant="outline-secondary"
+              id="charClass"
+              title={charClass}
+              onSelect={selectedClass => setCharClass(selectedClass)}
+              value={charClass}
+            >
+            {classes.map(charClass => (
+              <Dropdown.Item eventKey={charClass}>{charClass}</Dropdown.Item>
+            ))
+            }
+          </DropdownButton>
         </InputGroup.Append>
       </InputGroup>
-    </>
+
+      <Button variant="dark">
+        Create
+      </Button>
+    </div>
   )
 }
 
@@ -64,11 +103,9 @@ class ProfilePage extends Component {
             )
           }
           {
-            user.character ?
-              <p>Your account has no character! Add character here.</p>
-              :
-              <p>{user.character}</p>
+            typeof user.character === 'undefined' && <p>Your account has no character!</p>
           }
+          <CharacterCreation />
         </Col>
       </>
     );

@@ -29,7 +29,7 @@ export default function Registration({register}) {
       if (form.checkValidity()) {
         if (registerPassword.current.value !== registerPasswordConfirm.current.value) {
           setPasswordsMatch(false);
-          
+          console.log(registerPassword);
         } else {
           setPasswordsMatch(true);
           message = await register(registerEmail.current.value, registerPassword.current.value)

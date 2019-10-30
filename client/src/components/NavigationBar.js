@@ -17,7 +17,7 @@ export default function NavigationBar() {
         <Navbar expand="sm" variant="dark" bg="dark" style={{border: "1px solid #000", marginBottom: "2.5em"}} >
             <Navbar.Brand>
                 <NavLink className="nav" exact to="/events" activeClassName="activeNav">
-                    <GoCalendar style={margin} />Calendar
+                    <GoCalendar style={margin} />Events
                 </NavLink>
             </Navbar.Brand >
             <Nav.Link>

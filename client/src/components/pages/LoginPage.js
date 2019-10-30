@@ -12,7 +12,7 @@ import { IoIosLogIn, IoLogoGoogle } from "react-icons/io";
 import { FiMail, FiKey } from "react-icons/fi";
 import { FaSkull } from "react-icons/fa"
 
-import Registration from "./Registration";
+import Registration from "../functional/Registration";
 
 
 class LoginPage extends Component {

@@ -26,4 +26,9 @@ router.get("/", async (req, res) => {
   return res.status(200).json({character: fullUser.character});
 });
 
+router.get("/all", async (req, res) => {
+  const characters = await Character.find({},'name class role ep gp priority');
+  return res.status(200).json(characters);
+})
+
 module.exports = router;

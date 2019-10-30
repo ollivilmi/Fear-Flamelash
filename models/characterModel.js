@@ -7,6 +7,7 @@ const characterSchema = new Schema(
         level: { type: Number, min: 1, max: 60, default: 60 },
         ep: { type: Number, default: 0 },
         gp: { type: Number, default: 0 },
+        priority: { type: Number, default: 0},
         class: { type: String, enum: [
                 'warrior', 
                 'rogue', 

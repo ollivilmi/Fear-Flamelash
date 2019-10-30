@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import { getCharacters } from '../../actions/characterActions';
 
 import NavigationBar from '../NavigationBar';
 import Table from 'react-bootstrap/Table';
@@ -8,10 +9,12 @@ import Row from 'react-bootstrap/Row';
 
 class PointsPage extends Component {
   componentDidMount() {
+    this.props.getCharacters(this.props.user.token);
   }
 
   render() {
     const user = this.props.user.profile
+    console.log(this.props.characters);
 
     return (
       <>
@@ -20,17 +23,23 @@ class PointsPage extends Component {
           <Table striped bordered hover variant="dark">
           <thead>
             <tr>
-              <th>Email</th>
-              <th>Created</th>
+              <th>Character</th>
+              <th>Class</th>
               <th>Role</th>
+              <th>Priority</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{user.email}</td>
-              <td>{user.createdAt}</td>
-              <td>{user.role}</td>
-            </tr>
+            {
+              this.props.characters.map((character, index) => (
+                <tr key={index}>
+                  <td>{character.name}</td>
+                  <td>{character.class}</td>
+                  <td>{character.role}</td>
+                  <td>{(character.ep)}</td>
+                </tr>
+              ))
+            }
           </tbody>
           </Table>
         </Row>
@@ -40,11 +49,13 @@ class PointsPage extends Component {
 }
 
 PointsPage.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.object.isRequired,
+  characters: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
   user: state.user,
+  characters: state.character.characters
 });
 
-export default connect(mapStateToProps)(PointsPage);
+export default connect(mapStateToProps,{getCharacters})(PointsPage);
