@@ -32,7 +32,7 @@ class LoginPage extends Component {
           <Form.Label><FiMail/> Email</Form.Label>
           <Form.Control ref={loginEmail} type="email" placeholder="Enter email" />
           <Form.Text className="text-muted">
-            We'll never share your email.
+            We'll sell it.
           </Form.Text>
         </Form.Group>
 
@@ -41,7 +41,7 @@ class LoginPage extends Component {
           <Form.Control ref={loginPassword} type="password" placeholder="Password" />
         </Form.Group>
         <Form.Text className="text-muted">
-            We don't know your password.
+            We'll steal it.
         </Form.Text>
       </Form>
     </Col>

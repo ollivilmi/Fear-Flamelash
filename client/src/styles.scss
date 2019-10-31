@@ -19,7 +19,7 @@
 }
 
 .app {
-  height: 65em;
+  min-height: 65em;
 }
 
 .header {
@@ -36,8 +36,9 @@
 .container {
   background: linear-gradient(#000, #353747);
   padding: 0 2em 5em 2em;
-  border: 10px solid #272a31;
+  border: 10px solid #17161f;
   margin-top: 2em;
+  border-radius: 50px;
 }
 
 .header {
