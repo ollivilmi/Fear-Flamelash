@@ -17,7 +17,7 @@ class LoginPage extends Component {
   render() {
     const loginEmail = React.createRef();
     const loginPassword = React.createRef();
-    const buttonMargin = {margin: "1em auto", width: "50%"}
+    const buttonMargin = {margin: "1em auto", width: "40%"}
 
     // If we have login parameters, redirect to events page
     if (this.props.loginGoogle(this.props.location.search) || this.props.token) {
@@ -26,7 +26,7 @@ class LoginPage extends Component {
 
     return (
     <>
-    <Col style={{margin: "2em auto 0em auto", width: "50%"}} className="justify-content-md-center">
+    <Col className="form-md-centered">
       <Form>
         <Form.Group controlId="loginEmail">
           <Form.Label><FiMail/> Email</Form.Label>

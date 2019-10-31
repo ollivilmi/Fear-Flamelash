@@ -1,13 +1,15 @@
 import React from 'react';
+import {createCharacter} from '../../actions/charActions';
 
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
-export default function CharacterCreation({token, createCharacter}) {
+export default function CharacterCreation({token}) {
     const classes = [
       "warrior", "rogue", "mage", "warlock", "druid", "shaman", "priest", "hunter"
     ]
@@ -16,54 +18,67 @@ export default function CharacterCreation({token, createCharacter}) {
       "tank", "healer", "melee", "ranged"
     ]
   
+    const name = React.useRef();
     const [role, setRole] = React.useState("tank");
     const [charClass, setCharClass] = React.useState("warrior");
-  
+
+    const onSubmit = () => {
+      createCharacter(token, {
+        name: name.current.value,
+        role,
+        class: charClass
+      })
+    }
+
     return (
-      <div className="my-auto">
-        <InputGroup className="mb-3">
-          <InputGroup.Prepend>
-            <InputGroup.Text id="charName">Name</InputGroup.Text>
-          </InputGroup.Prepend>
-          <Form.Control
-            required
-            type="text"
-            placeholder="Enter name"
-          />
-  
-          <InputGroup.Append>
-            <DropdownButton
+      <Col>
+        <Col className="form-lg-centered">
+          Add new character
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="charName">Name</InputGroup.Text>
+            </InputGroup.Prepend>
+            <Form.Control
+              ref={name}
+              required
+              type="text"
+              placeholder="Enter name"
+            />
+            <InputGroup.Append>
+              <DropdownButton
+                    as={InputGroup.Prepend}
+                    variant="outline-secondary"
+                    id="charRole"
+                    title={role}
+                    onSelect={selectedRole => setRole(selectedRole)}
+                    value={role}
+                  >
+                    {roles.map((role, index) => (
+                      <Dropdown.Item key={index} eventKey={role}>{role}</Dropdown.Item>
+                    ))
+                    }
+                </DropdownButton>
+                <DropdownButton
                   as={InputGroup.Prepend}
                   variant="outline-secondary"
-                  id="charRole"
-                  title={role}
-                  onSelect={selectedRole => setRole(selectedRole)}
-                  value={role}
+                  id="charClass"
+                  title={charClass}
+                  onSelect={selectedClass => setCharClass(selectedClass)}
+                  value={charClass}
                 >
-                  {roles.map(role => (
-                    <Dropdown.Item eventKey={role}>{role}</Dropdown.Item>
-                  ))
-                  }
+                {classes.map((charClass, index) => (
+                  <Dropdown.Item key={index} eventKey={charClass}>{charClass}</Dropdown.Item>
+                ))
+                }
               </DropdownButton>
-              <DropdownButton
-                as={InputGroup.Prepend}
-                variant="outline-secondary"
-                id="charClass"
-                title={charClass}
-                onSelect={selectedClass => setCharClass(selectedClass)}
-                value={charClass}
-              >
-              {classes.map(charClass => (
-                <Dropdown.Item eventKey={charClass}>{charClass}</Dropdown.Item>
-              ))
-              }
-            </DropdownButton>
-          </InputGroup.Append>
-        </InputGroup>
-  
-        <Button variant="dark">
-          Create
-        </Button>
-      </div>
+              <Button variant="dark" onClick={() => onSubmit()}>
+                Create
+              </Button>
+            </InputGroup.Append>
+          </InputGroup>
+        </Col>
+
+
+      </Col>
     )
   }

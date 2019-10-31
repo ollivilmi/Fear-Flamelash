@@ -1,7 +1,8 @@
-import {UPDATE_CHARACTERS} from '../actions/types';
+import {UPDATE_CHARACTERS, USER_CHARACTER} from '../actions/types';
 
 const initialState = {
-    characters: []
+    characters: [],
+    user: {}
 };
 
 export default function(state = initialState, action) {
@@ -12,6 +13,12 @@ export default function(state = initialState, action) {
         ...state,
         characters: action.payload
       }
+
+      case USER_CHARACTER:
+        return {
+          ...state,
+          user: action.payload
+        }
 
       default:
         return state;

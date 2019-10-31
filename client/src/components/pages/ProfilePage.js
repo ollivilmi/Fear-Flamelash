@@ -2,19 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {sendReferral, updateUserInfo} from '../../actions/authActions';
+import {getCharacter} from '../../actions/charActions';
 
 import Col from 'react-bootstrap/Col';
+
 import NavigationBar from '../functional/NavigationBar';
 import Referral from '../functional/Referral';
+import Character from '../functional/Character';
 import CharacterCreation from '../functional/CharacterCreation';
+import CharacterLink from '../functional/CharacterLink';
 
 class ProfilePage extends Component {
   componentDidMount() {
+    this.props.getCharacter(this.props.token);
   }
 
   render() {
     const user = this.props.user.profile
-    console.log(user);
+    console.log(this.props.character)
 
     return (
       <>
@@ -34,10 +39,9 @@ class ProfilePage extends Component {
               <p>{user.role}</p>
             )
           }
-          {
-            typeof user.character === 'undefined' && <p>Your account has no character!</p>
-          }
-          <CharacterCreation />
+          <Character character={this.props.character} />
+          <CharacterCreation token={this.props.token} />
+          <CharacterLink token={this.props.token} />
         </Col>
       </>
     );
@@ -46,10 +50,13 @@ class ProfilePage extends Component {
 
 ProfilePage.propTypes = {
   user: PropTypes.object.isRequired,
+  character: PropTypes.object
 }
 
 const mapStateToProps = state => ({
   user: state.user,
+  character: state.character.user,
+  token: state.user.token
 });
 
-export default connect(mapStateToProps,{updateUserInfo})(ProfilePage);
+export default connect(mapStateToProps,{updateUserInfo, getCharacter})(ProfilePage);

@@ -27,6 +27,16 @@
   text-align: 'center'
 }
 
+.form-md-centered {
+  margin: 2em auto 0em auto;
+  width: 40%;
+}
+
+.form-lg-centered {
+  margin: 2em auto 0em auto;
+  width: 60%;
+}
+
 .navbar {
   background: #39374f;
   margin-bottom: 2.5em;
@@ -76,7 +86,7 @@ $btn-bg: #39374f;
 $btn-color: #FFF;
 
 .rbc-day-bg {
-  background: linear-gradient(#969696, #d6d6d6);
+  background: linear-gradient(#cecece, #d6d6d6);
 }
 
 .rbc-today {
