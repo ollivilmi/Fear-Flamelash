@@ -20,6 +20,8 @@ export default function(state = initialState, action) {
         };
 
       case UPDATE_USER:
+        localStorage.setItem("profile", JSON.stringify(action.payload.profile))
+
         return {
         ...state,
         profile: action.payload

@@ -4,8 +4,10 @@ import {connect} from 'react-redux';
 import { getCharacters } from '../../actions/charActions';
 
 import NavigationBar from '../functional/NavigationBar';
-import Table from 'react-bootstrap/Table';
-import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
 
 class PointsPage extends Component {
   componentDidMount() {
@@ -13,35 +15,41 @@ class PointsPage extends Component {
   }
 
   render() {
-    console.log(this.props.characters);
+    const user = this.props.user.profile
+
+    const columns = [
+      {
+        Header: 'Character',
+        accessor: 'name'
+      },
+      {
+        Header: "Class",
+        accessor: 'class'
+      },
+      {
+        Header: "Role",
+        accessor: "role"
+      },
+      {
+        Header: "Priority",
+        accessor: "priority"
+      }
+    ]
 
     return (
       <>
         <NavigationBar/>
-        <Row>
-          <Table striped bordered hover variant="dark">
-          <thead>
-            <tr>
-              <th>Character</th>
-              <th>Class</th>
-              <th>Role</th>
-              <th>Priority</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.props.characters.map((character, index) => (
-                <tr key={index}>
-                  <td>{character.name}</td>
-                  <td>{character.class}</td>
-                  <td>{character.role}</td>
-                  <td>{(character.priority)}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-          </Table>
-        </Row>
+        <div>
+          <ReactTable 
+            data={this.props.characters}
+            columns={columns}
+          />
+        {
+          user.role === 'admin' && (
+            <Button variant="dark">Import from CSV</Button>
+          )
+        }
+        </div>
       </>
     );
   }

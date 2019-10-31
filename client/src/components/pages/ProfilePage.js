@@ -19,7 +19,6 @@ class ProfilePage extends Component {
 
   render() {
     const user = this.props.user.profile
-    console.log(this.props.character)
 
     return (
       <>
