@@ -14,7 +14,7 @@ export default function NavigationBar() {
     const margin = {margin: "0.25em 0.5em"}
 
     return (
-        <Navbar expand="sm" variant="dark" bg="dark" style={{border: "1px solid #000", marginBottom: "2.5em"}} >
+        <Navbar expand="sm" className="bg-nav">
             <Navbar.Brand>
                 <NavLink className="nav" exact to="/events" activeClassName="activeNav">
                     <GoCalendar style={margin} />Events

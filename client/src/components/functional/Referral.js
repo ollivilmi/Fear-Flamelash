@@ -12,7 +12,7 @@ export default function Referral({userId, sendReferral, updateUserInfo}) {
         <p>You are not a member. Send referral code from guild info to become one.</p>
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
-            <InputGroup.Text className="app" id="referralCode">Referral code</InputGroup.Text>
+            <InputGroup.Text id="referralCode">Referral code</InputGroup.Text>
           </InputGroup.Prepend>
           <FormControl
             placeholder="insert here"

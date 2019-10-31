@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import { Calendar, momentLocalizer  } from 'react-big-calendar';
 import moment from 'moment';
 
-import NavigationBar from '../NavigationBar';
+import NavigationBar from '../functional/NavigationBar';
 import Row from 'react-bootstrap/Row';
 
 class EventPage extends Component {

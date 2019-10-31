@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { getCharacters } from '../../actions/characterActions';
+import { getCharacters } from '../../actions/charActions';
 
-import NavigationBar from '../NavigationBar';
+import NavigationBar from '../functional/NavigationBar';
 import Table from 'react-bootstrap/Table';
 import Row from 'react-bootstrap/Row';
 
@@ -13,7 +13,6 @@ class PointsPage extends Component {
   }
 
   render() {
-    const user = this.props.user.profile
     console.log(this.props.characters);
 
     return (
@@ -36,7 +35,7 @@ class PointsPage extends Component {
                   <td>{character.name}</td>
                   <td>{character.class}</td>
                   <td>{character.role}</td>
-                  <td>{(character.ep)}</td>
+                  <td>{(character.priority)}</td>
                 </tr>
               ))
             }
