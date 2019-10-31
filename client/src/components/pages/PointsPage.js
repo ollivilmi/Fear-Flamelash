@@ -46,7 +46,7 @@ class PointsPage extends Component {
           />
         {
           user.role === 'admin' && (
-            <Button variant="dark">Import from CSV</Button>
+            <Button style={{marginTop: "1em"}} variant="dark">Import from CSV</Button>
           )
         }
         </div>

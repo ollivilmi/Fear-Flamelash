@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 
 import Button from 'react-bootstrap/Button';
 
-export default function CharacterLink({token, characters}) {
+export default function CharacterLink({token}) {
     const name = React.useRef();
 
     const onSubmit = () => {

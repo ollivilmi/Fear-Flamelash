@@ -2,7 +2,7 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
 .bg-darkish {
-  background: linear-gradient(#000, #2f2e3b);
+  background: linear-gradient(#080808, #2f2e3b);
 }
 
 .row {
@@ -69,6 +69,8 @@
   font-weight: bold;
 }
 
+// CALENDAR
+
 .rbc-calendar {
   font-family: "Segoe UI Emoji";
 }
@@ -115,5 +117,26 @@ $btn-color: #FFF;
   color: rgb(131, 131, 131);
 }
 
-
 @import 'react-big-calendar/lib/sass/styles';
+
+// POINTS
+.rt-thead {
+  background: #39374f;
+  font-weight: bold;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.rt-table {
+  font-family: "Segoe UI Emoji";
+}
+
+.rt-td {
+  border-bottom: 3px solid #25252e;
+  border-left: 2px solid #25252e;
+  text-align: center;
+}
+
+.-btn {
+  background: #39374f !important;
+  color: white !important;
+}
