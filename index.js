@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require("body-parser");
 const app = express();
 const database = require("./database/config");
+const multer = require('multer')
 
 // Initialize authentication strategies
 require('./routes/security/authentication')

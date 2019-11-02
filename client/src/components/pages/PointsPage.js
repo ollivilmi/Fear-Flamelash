@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { getCharacters } from '../../actions/charActions';
 
 import NavigationBar from '../functional/NavigationBar';
-import Button from 'react-bootstrap/Button';
+import FileUpload from '../functional/FileUpload';
 
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
@@ -45,9 +45,12 @@ class PointsPage extends Component {
             columns={columns}
           />
         {
-          user.role === 'admin' && (
-            <Button style={{marginTop: "1em"}} variant="dark">Import from CSV</Button>
-          )
+          user.role === 'admin' &&
+          <FileUpload 
+            title="From CSV"
+            url="/api/character/import"
+            token={this.props.user.token}
+          />
         }
         </div>
       </>

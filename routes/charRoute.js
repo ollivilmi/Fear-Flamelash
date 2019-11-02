@@ -2,6 +2,8 @@ const express = require("express");
 const User = require("../models/userModel");
 const Character = require("../models/characterModel");
 const router = express.Router();
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 router.post("/", async (req, res) => {
   const character = new Character(req.body);
@@ -29,6 +31,14 @@ router.get("/", async (req, res) => {
 router.get("/all", async (req, res) => {
   const characters = await Character.find({},'name class role ep gp priority');
   return res.status(200).json(characters);
+})
+
+router.post("/import", upload.array(), async (req, res) => {
+  if (req.user.role !== 'admin') {
+    res.status(403);
+  }
+  console.log(req.files);
+
 })
 
 module.exports = router;

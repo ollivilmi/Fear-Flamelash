@@ -5,7 +5,6 @@ const initialState = {
   profile: JSON.parse(localStorage.getItem('profile'))
 };
 
-  
 export default function(state = initialState, action) {
     switch (action.type) {
 
