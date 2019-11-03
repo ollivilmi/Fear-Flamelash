@@ -8,17 +8,18 @@ const characterSchema = new Schema(
         ep: { type: Number, default: 0 },
         gp: { type: Number, default: 0 },
         priority: { type: Number, default: 0},
+        rank: { type: String, default: "member"},
         class: { type: String, enum: [
-                'warrior', 
-                'rogue', 
-                'hunter', 
-                'mage', 
-                'warlock', 
-                'priest', 
-                'druid', 
-                'shaman'
+                'Warrior', 
+                'Rogue', 
+                'Hunter', 
+                'Mage', 
+                'Warlock', 
+                'Priest', 
+                'Druid', 
+                'Shaman'
         ], required: true},
-        role: { type: String, enum: ['tank', 'healer', 'melee', 'ranged'], required: true },
+        role: { type: String, enum: ['tank', 'healer', 'melee', 'ranged'], required: true, default: "melee" },
     }
 )
 

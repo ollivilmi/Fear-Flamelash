@@ -3,7 +3,10 @@ const path = require('path');
 const bodyParser = require("body-parser");
 const app = express();
 const database = require("./database/config");
-const multer = require('multer')
+// const multer = require('multer')
+app.use(require('express-fileupload')(
+{ limits: { fileSize: 50 * 1024 * 1024 }}
+));
 
 // Initialize authentication strategies
 require('./routes/security/authentication')
