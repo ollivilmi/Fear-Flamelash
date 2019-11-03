@@ -19,8 +19,49 @@ const characterSchema = new Schema(
                 'Druid', 
                 'Shaman'
         ], required: true},
-        role: { type: String, enum: ['tank', 'healer', 'melee', 'ranged'], required: true, default: "melee" },
+        role: { type: String, enum: ['Tank', 'Healer', 'Melee', 'Ranged']},
     }
 )
+
+// This is ugly but useful for mass import from csv
+characterSchema.pre('save', function (next) {
+    if (this.role === undefined) {
+        switch (this.get("class")) {
+            case "Warrior":
+                this.role = "Tank";
+                break;
+
+            case "Rogue":
+                this.role = "Melee";
+                break;
+
+            case "Hunter":
+                this.role = "Ranged";                
+                break;
+
+            case "Mage":
+                this.role = "Ranged";
+                break;
+
+            case "Warlock":
+                this.role = "Ranged";
+                break;
+
+            case "Priest":
+                this.role = "Healer";
+                break;
+
+            case "Druid":
+                this.role = "Healer";
+                break;
+
+            case "Shaman":
+                this.role = "Healer";
+                break;
+        }
+    }
+
+    next();
+})
 
 module.exports = mongoose.model("Character", characterSchema);

@@ -17,7 +17,7 @@ export default function FileUpload({title, url, token}) {
                 <Button variant="dark" onClick={() => {
                     const data = new FormData();
                     data.append('file', file);
-                    console.log(file);
+                    
                     fetch(url, {
                         method: 'POST',
                         body: data,

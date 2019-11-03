@@ -36,42 +36,82 @@ router.get("/all", async (req, res) => {
 router.post("/import", async (req, res) => {
   if (req.user.role !== 'admin') {
     res.status(403);
+    return
   }
+
+  if (!req.files) {
+    res.status(400).json({message: "Invalid request. Import file required."})
+    return
+  }
+
   const data = req.files.file.data
+  const characters = readCharacterData(data);
 
-  const csv = data.toString('ascii', 0, data.length).split(/\n/);
-  csv.map(line => {
-    const fields = line.split(',');
+  const promises = characters.map(character => {
+    return Character.findOne({
+      name: character.name
+    }, (err, characterInDB) => {
+      if (err) {
+        console.log(err);
+      } else {
 
-    const character = {
-      name: fields[0],
-      class: fields[1],
-      rank: fields[2],
-      ep: fields[3],
-      gp: fields[4],
-      priority: fields[5]
-    }
-
-    // Validate that the line contained a character
-    // Could use filter but do not want to loop array
-    if (character && character.name.length > 0) {
-
-      Character.findOne({
-        name: character.name
-      }, (err, characterInDB) => {
-        if (err) {
-          console.log(err);
-        } else {
-          if (characterInDB) {
-            characterInDB.update({character});
-          } else {
-            new Character(character).save();
-          }
+        if (characterInDB) {
+        // Check to avoid unnecessary updates
+        if (charIsUpdated(character, characterInDB)) {
+          characterInDB.overwrite(character);
+          characterInDB.save();
         }
-      })
-    }
+
+        } else {
+          new Character(character).save();
+        }
+      }
+    })
   })
-  res.status(200).json({message: "File received and processed"});
+
+  Promise.all(promises)
+  .then(() => {
+    res.status(200).json({message: "File received and processed"})
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(400).json({message: "Internal error: " + err});
+  })
 })
+
+const readCharacterData = data => {
+  const lines = data.toString('utf8', 0, data.length).split(/\n/);
+  
+  return lines.reduce((result, line) => {
+    const fields = line.split(',');
+    // ignore invalid names (might be empty)
+    if (!fields[0] || fields[0].length === 0) {
+      return result
+    }
+
+    // wrapped in try block in for parseInt errors
+    try {
+      result.push({
+        name: fields[0],
+        class: fields[1],
+        rank: fields[2],
+        ep: parseInt(fields[3] || '0'),
+        gp: parseInt(fields[4] || '0'),
+        priority: parseInt(fields[5] || '0')
+      });
+    }
+    finally {
+      return result
+    }
+  }, []);
+}
+
+charIsUpdated = (character, characterInDB) => {
+  return (
+    character.ep !== characterInDB.ep ||
+    character.gp !== characterInDB.gp ||
+    character.priority !== characterInDB.priority
+  )
+}
 
 module.exports = router;

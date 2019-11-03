@@ -11,16 +11,16 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export default function CharacterCreation({token}) {
     const classes = [
-      "warrior", "rogue", "mage", "warlock", "druid", "shaman", "priest", "hunter"
+      "Warrior", "Rogue", "Mage", "Warlock", "Druid", "Shaman", "Priest", "Hunter"
     ]
   
     const roles = [
-      "tank", "healer", "melee", "ranged"
+      "Tank", "Healer", "Melee", "Ranged"
     ]
   
     const name = React.useRef();
-    const [role, setRole] = React.useState("tank");
-    const [charClass, setCharClass] = React.useState("warrior");
+    const [role, setRole] = React.useState("Tank");
+    const [charClass, setCharClass] = React.useState("Warrior");
 
     const onSubmit = () => {
       createCharacter(token, {
