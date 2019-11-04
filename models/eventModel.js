@@ -15,7 +15,7 @@ const signupSchema = new Schema(
 
 const eventSchema = new Schema(
     {
-        name: { type: String },
+        title: { type: String },
         description: { type: String },
         start: Date,
         end: Date,

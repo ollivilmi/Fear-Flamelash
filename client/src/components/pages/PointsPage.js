@@ -40,9 +40,20 @@ class PointsPage extends Component {
       <>
         <NavigationBar/>
         <div>
-          <ReactTable 
+          <ReactTable
             data={this.props.characters}
             columns={columns}
+            defaultSorted={[
+              {
+                id: "priority",
+                desc: true
+              },
+              {
+                id: "name",
+                asc: true
+              }
+            ]}
+            defaultPageSize={10}
           />
         {
           user.role === 'admin' &&

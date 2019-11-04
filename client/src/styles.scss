@@ -124,6 +124,14 @@ $btn-color: #FFF;
 
 @import 'react-big-calendar/lib/sass/styles';
 
+.modal-content {
+  background: linear-gradient(rgb(12, 12, 12), #292933);
+}
+
+.modal-footer {
+  justify-content: space-between;
+}
+
 // POINTS
 .rt-thead {
   background: #39374f;

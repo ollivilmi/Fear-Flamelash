@@ -25,7 +25,7 @@ describe('Events CRUD tests', () => {
     });
 
     it('Autopopulates signup character', async() => {
-        testChar = new Character({name: "testchar", class: "warrior", role: "tank"});
+        testChar = new Character({name: "testchar", class: "Warrior", role: "Tank"});
         
         await testChar.save();
         await Event.updateOne({_id: testEvent._id}, { 

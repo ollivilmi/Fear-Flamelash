@@ -32,7 +32,7 @@ describe('Users CRUD tests', () => {
     })
 
     it('Autopopulates user character', async() => {
-        const character = new Character({ name: "Tester", class: "warrior", role: "tank"});
+        const character = new Character({ name: "Tester", class: "Warrior", role: "Tank"});
 
         await character.save();
         await User.updateOne({_id: testUser._id},{character});

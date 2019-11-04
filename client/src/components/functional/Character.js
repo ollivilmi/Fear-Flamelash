@@ -1,16 +1,13 @@
 import React from 'react';
-import Col from 'react-bootstrap/Col';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-export default function Character({character, width}) {
-    console.log(character);
-
+export default function Character({character}) {
     return (
         <>
         {
-            Object.keys(character).length === 0 ? (
+            (!character || Object.keys(character).length === 0) ? (
                 <p>Your account has no main character!</p>
             ) : (
                 <Card text="white">

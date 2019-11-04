@@ -7,7 +7,7 @@ describe('Characters CRUD tests', () => {
     beforeEach(async() => {
         await Character.deleteMany();
 
-        testChar = new Character({name: "testchar", class: "warrior", role: "tank"});
+        testChar = new Character({name: "testchar", class: "Warrior", role: "Tank"});
         return testChar.save();
     });
 
