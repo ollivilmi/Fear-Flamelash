@@ -24,7 +24,7 @@ class ProfilePage extends Component {
       <>
         <NavigationBar/>
 
-        <Col style={{textAlign: 'center'}}>
+        <Col className="lg-centered">
           <h1>{user.email}</h1>
           {
             user.role === 'none' ? (
@@ -38,7 +38,9 @@ class ProfilePage extends Component {
               <p>{user.role}</p>
             )
           }
-          <Character character={this.props.character} />
+          <Col className="form-lg-centered">
+            <Character character={this.props.character} />
+          </Col>
           <CharacterCreation token={this.props.token} />
           <CharacterLink token={this.props.token} />
         </Col>

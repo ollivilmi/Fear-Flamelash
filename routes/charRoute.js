@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
   character.save().then(() => {
     return res.status(200).json({message: "character created"});
   }).catch(() => {
-    return res.status(400).json({message: "error creating character"});
+    return res.status(400).json({message: "error creating character (already exists)"});
   });
 })
 
@@ -56,11 +56,11 @@ router.post("/import", async (req, res) => {
       } else {
 
         if (characterInDB) {
-        // Check to avoid unnecessary updates
-        if (charIsUpdated(character, characterInDB)) {
-          characterInDB.overwrite(character);
-          characterInDB.save();
-        }
+          // Check to avoid unnecessary updates
+          if (charIsUpdated(character, characterInDB)) {
+            characterInDB.overwrite(character);
+            characterInDB.save();
+          }
 
         } else {
           new Character(character).save();

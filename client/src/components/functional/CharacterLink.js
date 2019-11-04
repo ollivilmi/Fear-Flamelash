@@ -13,16 +13,15 @@ export default function CharacterLink({token}) {
     const onSubmit = () => {
       linkCharacter(token, {
         name: name.current.value,
-      })
+      }).then(window.location.reload());
     }
 
     return (
       <Col>
         <Col className="form-lg-centered">
-          Set your main
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
-              <InputGroup.Text id="charName">Name</InputGroup.Text>
+              <InputGroup.Text id="charName">Main character</InputGroup.Text>
             </InputGroup.Prepend>
             <Form.Control
               ref={name}

@@ -10,8 +10,9 @@ export const createCharacter = (token, character) => {
             Authorization: 'Bearer ' + token
         },
     })
-    .then(() => console.log("created character " + character))
-    .catch(e => console.log(e));
+    .then(res => res.json())
+    .then(json => { return json.message })
+    .catch(e => { return "error: " + e });
 }
 
 export const linkCharacter = (token, character) => {
@@ -35,10 +36,10 @@ export const getCharacter = (token) => dispatch => {
         }
     })
     .then(res => res.json())
-    .then(character => {
+    .then(json => {
         dispatch({
             type: USER_CHARACTER,
-            payload: character
+            payload: json.character
         })
     })
 }

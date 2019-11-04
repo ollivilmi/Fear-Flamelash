@@ -17,26 +17,29 @@ export default function CharacterCreation({token}) {
     const roles = [
       "Tank", "Healer", "Melee", "Ranged"
     ]
-  
+
+    
     const name = React.useRef();
     const [role, setRole] = React.useState("Tank");
     const [charClass, setCharClass] = React.useState("Warrior");
+    const [message, setMessage] = React.useState('');
 
     const onSubmit = () => {
       createCharacter(token, {
         name: name.current.value,
         role,
         class: charClass
-      })
+      }).then(msg =>
+        setMessage(msg)
+      )
     }
 
     return (
       <Col>
         <Col className="form-lg-centered">
-          Add new character
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
-              <InputGroup.Text id="charName">Name</InputGroup.Text>
+              <InputGroup.Text id="charName">New character</InputGroup.Text>
             </InputGroup.Prepend>
             <Form.Control
               ref={name}
@@ -76,6 +79,7 @@ export default function CharacterCreation({token}) {
               </Button>
             </InputGroup.Append>
           </InputGroup>
+          <p>{message}</p>
         </Col>
 
 

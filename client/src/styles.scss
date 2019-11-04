@@ -37,6 +37,11 @@
   width: 60%;
 }
 
+.lg-centered {
+  margin: 2em auto 0em auto;
+  text-align: center;
+}
+
 .navbar {
   background: #39374f;
   margin-bottom: 2.5em;
@@ -139,4 +144,15 @@ $btn-color: #FFF;
 .-btn {
   background: #39374f !important;
   color: white !important;
+}
+
+// PROFILE
+
+.card {
+  background: #292933;
+  box-shadow: 2px 5px 8px -2px rgba(0,0,0,0.75);
+}
+
+.btn-vert-margin {
+  margin: 0 1em;
 }
