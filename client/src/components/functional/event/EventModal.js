@@ -64,11 +64,9 @@ export default function EventModal({event, show, onHide}) {
                     </Modal.Body>
                     <Modal.Footer>
                         { !character ? (
-                            <CharacterLink token={token} />
+                            <CharacterLink/>
                         ) : (
-                            <Signup
-                                event={event}
-                            />
+                            <Signup event={event} />
                         )
                         }
                     </Modal.Footer>

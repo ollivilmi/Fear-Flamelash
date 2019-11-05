@@ -31,7 +31,6 @@ router.delete('/', async (req, res) => {
     }
 
     Event.findByIdAndDelete(req.body.eventId).then(async () => {
-        console.log("event deleted");
         return res.status(200).json({message: "Event deleted"});
     })
     .catch(err => {

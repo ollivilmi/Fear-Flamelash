@@ -1,9 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-export default function Character({character}) {
+export default function Character() {
+    const character = useSelector(state => state.character.main);
+
     return (
         <>
         {

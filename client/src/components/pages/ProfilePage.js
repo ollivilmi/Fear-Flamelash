@@ -39,13 +39,13 @@ class ProfilePage extends Component {
               <>
                 <p>{user.role}</p>
                 <Col className="form-lg-centered">
-                  <Character character={this.props.character} />
+                  <Character/>
                 </Col>
                 <Col className="form-lg-centered">
-                  <CharacterLink token={this.props.token} />
+                  <CharacterLink/>
                 </Col>
                 <Col className="form-lg-centered">
-                  <CharacterCreation token={this.props.token} />
+                  <CharacterCreation/>
                 </Col>
               </>
             )

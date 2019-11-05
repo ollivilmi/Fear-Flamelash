@@ -1,5 +1,6 @@
 import React from 'react';
 import {createCharacter} from '../../../actions/charActions';
+import { useSelector } from 'react-redux';
 
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
@@ -9,7 +10,9 @@ import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
-export default function CharacterCreation({token}) {
+export default function CharacterCreation() {
+    const token = useSelector(state => state.user.token);
+
     const classes = [
       "Warrior", "Rogue", "Mage", "Warlock", "Druid", "Shaman", "Priest", "Hunter"
     ]
