@@ -15,6 +15,20 @@ export const createEvent = (token, event) => {
     .catch(e => console.log(e));
 }
 
+export const deleteEvent = (token, eventId) => {
+    return fetch('/api/event', {
+        method: 'DELETE',
+        body: JSON.stringify({eventId}),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+    .then(res => { return res.json() })
+    .then(json => { console.log(json) })
+    .catch(e => console.log(e));
+}
+
 export const getEvents = token => dispatch => {
     return fetch('/api/event', {
         headers: {

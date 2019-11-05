@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req,res) => {
     if (req.user.role !== 'admin') {
-        res.status(403);
+        res.status(401);
         return;
     }
 
@@ -21,6 +21,21 @@ router.post("/", async (req,res) => {
     })
     .catch(err => {
         return res.status(400).json({message: "Error creating event: " + err});
+    })
+})
+
+router.delete('/', async (req, res) => {
+    if (req.user.role !== 'admin') {
+        res.status(401);
+        return;
+    }
+
+    Event.findByIdAndDelete(req.body.eventId).then(async () => {
+        console.log("event deleted");
+        return res.status(200).json({message: "Event deleted"});
+    })
+    .catch(err => {
+        return res.status(400).json({message: "Error deleting event: " + err});
     })
 })
 

@@ -15,17 +15,17 @@ export default function NavigationBar() {
 
     return (
         <Navbar expand="sm" className="navbar">
-            <span class="navbar-brand">
+            <span className="navbar-brand">
                 <NavLink className="nav" exact to="/events" activeClassName="activeNav">
                     <GoCalendar style={margin} />Events
                 </NavLink>
             </span>
-            <div class="nav-link">
+            <div className="nav-link">
                 <NavLink className="nav" exact to="/epgp" activeClassName="activeNav">
                     <FaDragon style={margin} />EPGP
                 </NavLink>
             </div>
-            <div class="nav-link">
+            <div className="nav-link">
                 <NavLink className="nav" exact to="/profile" activeClassName="activeNav">
                     <GoPerson style={margin} />Profile
                 </NavLink>
