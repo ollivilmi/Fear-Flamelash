@@ -2,7 +2,7 @@
 
 For local development, you need to setup some environment variables.
 
-Explanation of variables [Example of app.yaml](https://github.com/ollivilmi/Fear-Flamelash/app-example.yaml)
+Explanation of variables [Example of app.yaml](https://github.com/ollivilmi/Fear-Flamelash/blob/master/app-example.yaml)
 
 [Deployed on google cloud app engine](https://fear-flamelash.appspot.com/)
 
