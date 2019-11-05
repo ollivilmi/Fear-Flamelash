@@ -64,7 +64,7 @@ export const sendReferral = (id, referral) => {
     })
     .then(res => res.json())
     .then(json => {
-        return json.message;
+        return json;
     })
     .catch(e => console.log(e));
 }
@@ -79,7 +79,7 @@ export const updateUserInfo = token => dispatch => {
         console.log(user);
         dispatch({
             type: UPDATE_USER,
-            payload: user
+            payload: user.profile
         })
     })
 }

@@ -2,7 +2,7 @@ import {LOGIN, UPDATE_USER} from '../actions/types';
 
 const initialState = {
   token: localStorage.getItem('token'),
-  profile: JSON.parse(localStorage.getItem('profile'))
+  profile: localStorage.getItem('profile')
 };
 
 export default function(state = initialState, action) {
@@ -19,7 +19,10 @@ export default function(state = initialState, action) {
         };
 
       case UPDATE_USER:
-        localStorage.setItem("profile", JSON.stringify(action.payload.profile))
+        localStorage.setItem("profile", JSON.stringify(action.payload))
+
+        console.log(action.payload);
+        console.log(typeof action.payload);
 
         return {
         ...state,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {sendReferral, updateUserInfo} from '../../actions/authActions';
+import {sendReferral} from '../../actions/authActions';
 import {getCharacter} from '../../actions/charActions';
 
 import Col from 'react-bootstrap/Col';
@@ -20,18 +20,17 @@ class ProfilePage extends Component {
 
   render() {
     const user = this.props.user.profile
+    console.log(typeof user);
 
     return (
       <>
         <NavigationBar/>
-
         <Col className="lg-centered">
           <h1>{user.email}</h1>
           {
             user.role === 'none' ? (
               <Referral
                 sendReferral={sendReferral}
-                updateUserInfo={() => this.props.updateUserInfo(this.props.user.token)}
                 userId={user.id} 
               />
             )
@@ -67,4 +66,4 @@ const mapStateToProps = state => ({
   token: state.user.token
 });
 
-export default connect(mapStateToProps,{updateUserInfo, getCharacter})(ProfilePage);
+export default connect(mapStateToProps,{getCharacter})(ProfilePage);

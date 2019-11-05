@@ -65,18 +65,34 @@ router.get('/googleCallBack',
 });
 
 router.post("/referral", async (req, res) => {
+  let role;
+
   if (req.body.referral === process.env.MEMBER_REFERRAL) {
-    user = await User.findByIdAndUpdate(req.body.id,{role: "member"});
-  } else if (req.body.referral === process.env.ADMIN_REFERRAL) {
-    user = await User.findByIdAndUpdate(req.body.id,{role: "admin"});
+    role = "member";
+    user = await User.findByIdAndUpdate(req.body.id,{role});
+  } 
+  else if (req.body.referral === process.env.ADMIN_REFERRAL) {
+    role = "admin";
+    user = await User.findByIdAndUpdate(req.body.id,{role});
   } else {
-    return res.status(400).json({message: "Invalid referral"});
+    res.status(400).json({message: "Invalid referral"});
+    return
   }
     
   if (user.nModified === 0) {
-    return res.status(400).json({messsage: "Error: could not update user"});
+    res.status(400).json({messsage: "Error: could not update user"});
+    return
   }
-  return res.status(200).json({message: "User promoted", role: user.role});
+
+  res.status(200).json(
+    {
+      message: "User promoted",
+      profile: {
+        email: user.email,
+        role,
+        id: user._id,
+      }
+  });
 });
 
 module.exports = router;
