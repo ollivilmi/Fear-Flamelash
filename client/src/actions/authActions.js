@@ -18,7 +18,7 @@ export const loginLocal = (email, password) => dispatch => {
     .then(json => {
         dispatch({
             type: LOGIN,
-            payload: json,
+            payload: json, // token & profile
         });
     })
     .catch(err => { return err.toString() });
@@ -29,6 +29,7 @@ export const loginGoogle = search => dispatch => {
       return false
   }
 
+  // google callback url redirects to login page with JWT in url
   const login = queryString.parse(search);
 
   dispatch({
@@ -39,7 +40,7 @@ export const loginGoogle = search => dispatch => {
   return true
 }
 
-export const registerLocal = (email, password) => dispatch => {
+export const registerLocal = (email, password) => {
     return fetch('/api/auth/register', {
         method: 'POST',
         body: JSON.stringify({email, password}),
@@ -49,9 +50,9 @@ export const registerLocal = (email, password) => dispatch => {
     })
     .then(res => res.json())
     .then(json => {
-        return json.message;
+        return json.message; // Render user feedback
     })
-    .catch(e => {return e});
+    .catch(e => {return e.toString()});
 }
 
 export const sendReferral = (id, referral) => {

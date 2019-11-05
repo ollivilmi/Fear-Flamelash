@@ -4,8 +4,8 @@ const Character = require("../models/characterModel");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    const events = await Event.find().populate('character');
-
+    const events = await Event.find();
+    
     return res.status(200).json({events});
 });
 

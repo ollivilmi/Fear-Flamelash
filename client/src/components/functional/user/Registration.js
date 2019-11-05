@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { registerLocal } from '../../../actions/authActions';
 
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -10,7 +11,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 import Collapse from 'react-bootstrap/Collapse';
 
-export default function Registration({register}) {
+export default function Registration() {
     const [open, setOpen] = useState(false);
     const [validated, setValidated] = useState(false);
     const [passwordsMatch, setPasswordsMatch] = useState(true);
@@ -31,7 +32,7 @@ export default function Registration({register}) {
           setPasswordsMatch(false);
         } else {
           setPasswordsMatch(true);
-          const msg = await register(registerEmail.current.value, registerPassword.current.value)
+          const msg = await registerLocal(registerEmail.current.value, registerPassword.current.value)
           setMessage(msg)
         }
       }

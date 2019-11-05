@@ -1,9 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 
-export default function FileUpload({title, url, token}) {
+export default function FileUpload({title, url}) {
     const [file, setFile] = React.useState(null);
+    const token = useSelector(state => state.user.token);
 
     return (
         <Col>

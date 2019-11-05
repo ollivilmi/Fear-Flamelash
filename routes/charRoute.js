@@ -1,9 +1,6 @@
 const express = require("express");
-const User = require("../models/userModel");
 const Character = require("../models/characterModel");
 const router = express.Router();
-// const multer = require('multer')
-// const upload = multer({ dest: 'uploads/' })
 
 router.post("/", async (req, res) => {
   const character = new Character(req.body);

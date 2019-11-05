@@ -61,7 +61,6 @@ class PointsPage extends Component {
           <FileUpload 
             title="From CSV"
             url="/api/character/import"
-            token={this.props.token}
           />
         }
         </div>

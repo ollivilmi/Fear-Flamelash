@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {loginLocal, loginGoogle, registerLocal} from '../../actions/authActions';
+import {loginLocal, loginGoogle} from '../../actions/authActions';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -99,5 +99,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {loginLocal,loginGoogle,registerLocal},
+  {loginLocal,loginGoogle},
 )(LoginPage);
