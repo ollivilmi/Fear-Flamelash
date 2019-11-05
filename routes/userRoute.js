@@ -5,11 +5,18 @@ const router = express.Router();
 
 router.post("/linkCharacter", async (req, res) => {
   const character = await Character.findOne({name: req.body.name});
-  User.findByIdAndUpdate(req.user._id,{character}).then(() => {
-    return res.status(200).json({message: "character linked"});
-  }).catch(() => {
-    return res.status(400).json({message: "error linking character"});
-  });
+  if (!character) {
+    res.status(200).json({message: "Character not found: " + req.body.name})
+    return
+  }
+
+  user = await User.findByIdAndUpdate(req.user._id,{character})
+  if (!user) {
+    res.status(400).json({message: "Error linking character"});
+    return;
+  }
+
+  res.status(200).json({message: "character linked", character});
 });
 
 router.delete("/linkCharacter", async (req,res) => {

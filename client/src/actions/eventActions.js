@@ -11,7 +11,7 @@ export const createEvent = (token, event) => {
         }
     })
     .then(res => res.json())
-    .then(json => { return json })
+    .then(json => { return json }) // User feedback
     .catch(e => console.log(e));
 }
 
@@ -24,7 +24,7 @@ export const deleteEvent = (token, eventId) => {
             Authorization: 'Bearer ' + token
         }
     })
-    .then(res => { return res.json() })
+    .then(res => { return res.json() }) // User feedback
     .then(json => { console.log(json) })
     .catch(e => console.log(e));
 }
@@ -35,8 +35,8 @@ export const getEvents = token => dispatch => {
             Authorization: 'Bearer ' + token
         }
     })
-    .then(res => res.json())
-    .then(json => { 
+    .then(res => res.json()) // All events
+    .then(json => {          // Title, description, start, end
         dispatch({
             type: UPDATE_EVENTS,
             payload: json.events
@@ -51,8 +51,8 @@ export const getSignups = (token, eventId) => dispatch => {
             Authorization: 'Bearer ' + token
         }
     })
-    .then(res => res.json())
-    .then(json => {
+    .then(res => res.json()) // All signups for event
+    .then(json => {          // Character, status string
         dispatch({
             type: UPDATE_SIGNUPS,
             payload: json.signups
@@ -70,8 +70,8 @@ export const submitSignup = (token, eventId, character, status) => {
             Authorization: 'Bearer ' + token
         }
     })
-    .then(res => res.json())
-    .then(json => {
+    .then(res => res.json()) // Updated signup table, including
+    .then(json => {          // the new submission
         return json.signups;
     })
     .catch(e => console.log(e))

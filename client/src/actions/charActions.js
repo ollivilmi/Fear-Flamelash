@@ -11,7 +11,7 @@ export const createCharacter = (token, character) => {
         },
     })
     .then(res => res.json())
-    .then(json => { return json.message })
+    .then(json => { return json.message }) // User feedback
     .catch(e => { return "error: " + e });
 }
 
@@ -24,7 +24,7 @@ export const linkCharacter = (token, character) => {
             Authorization: 'Bearer ' + token
         },
     })
-    .then(() => console.log("linked character " + character))
+    .then(res => { return res.json()})
     .catch();
 }
 
@@ -51,8 +51,8 @@ export const getCharacters = token => dispatch => {
             Authorization: 'Bearer ' + token
         },
     })
-    .then(res => res.json())
-    .then(payload => {
+    .then(res => res.json()) // array of all characters with priority > 0
+    .then(payload => {       // {name, class, role, ep, gp, priority}
         dispatch({
             type: UPDATE_CHARACTERS,
             payload

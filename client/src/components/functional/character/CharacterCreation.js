@@ -81,7 +81,7 @@ export default function CharacterCreation() {
               </Button>
             </InputGroup.Append>
           </InputGroup>
-          <p>{message}</p>
+          <p className="text-muted header">{message}</p>
       </Col>
     )
   }

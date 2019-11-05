@@ -1,22 +1,34 @@
 import React from 'react';
 import {linkCharacter} from '../../../actions/charActions';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 
 import Button from 'react-bootstrap/Button';
+import { USER_CHARACTER } from '../../../actions/types';
 
 export default function CharacterLink() {
     const name = React.useRef();
     const token = useSelector(state => state.user.token);
+    const dispatch = useDispatch();
+    const [errorMessage, setErrorMessage] = React.useState('');
 
-
-    const onSubmit = () => {
-      linkCharacter(token, {
+    const onSubmit = async () => {
+      const res = await linkCharacter(token, {
         name: name.current.value,
-      }).then(window.location.reload());
+      });
+
+      if (res.character) {
+        dispatch({
+          type: USER_CHARACTER,
+          payload: res.character
+        })
+      } else {
+        setErrorMessage(res.message);
+      }
     }
 
     return (
@@ -37,6 +49,7 @@ export default function CharacterLink() {
             </Button>
           </InputGroup.Append>
         </InputGroup>
+        <p className="text-muted header">{errorMessage}</p>
       </Col>
     )
   }

@@ -65,7 +65,7 @@ export const sendReferral = (id, referral) => {
     })
     .then(res => res.json())
     .then(json => {
-        return json;
+        return json; // message, updated profile
     })
     .catch(e => console.log(e));
 }
