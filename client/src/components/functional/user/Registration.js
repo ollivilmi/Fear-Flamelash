@@ -19,7 +19,7 @@ export default function Registration({register}) {
     const registerPassword = React.useRef();
     const registerPasswordConfirm = React.useRef();
 
-    let message = '';
+    const [message, setMessage] = useState('');
   
     const handleSubmit = async event => {
       const form = event.currentTarget;
@@ -29,11 +29,10 @@ export default function Registration({register}) {
       if (form.checkValidity()) {
         if (registerPassword.current.value !== registerPasswordConfirm.current.value) {
           setPasswordsMatch(false);
-          console.log(registerPassword);
         } else {
           setPasswordsMatch(true);
-          message = await register(registerEmail.current.value, registerPassword.current.value)
-          console.log(message);
+          const msg = await register(registerEmail.current.value, registerPassword.current.value)
+          setMessage(msg)
         }
       }
   
@@ -106,6 +105,7 @@ export default function Registration({register}) {
                 Register < IoIosLogIn/>
               </Button>
             </Col>
+            <Form.Text className="text-muted header">{message}</Form.Text>
           </Form>
         </Collapse>
       </>

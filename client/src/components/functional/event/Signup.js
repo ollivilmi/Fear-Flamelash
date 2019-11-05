@@ -4,8 +4,15 @@ import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { submitSignup } from '../../../actions/eventActions';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux'
+import {UPDATE_SIGNUPS} from '../../../actions/types';
 
-export default function Signup({character, token, event}) {
+export default function Signup({event}) {
+    const dispatch = useDispatch()
+    const token = useSelector(state => state.user.token);
+    const character = useSelector(state => state.character.main);
+
     const statusSelection = [
         "accept",
         "tentative",
@@ -13,6 +20,14 @@ export default function Signup({character, token, event}) {
     ]
 
     const [status, setStatus] = React.useState("accept");
+
+    const signupHandler = async () => {
+      const signups = await submitSignup(token, event._id, character._id, status);
+      dispatch({
+        type: UPDATE_SIGNUPS,
+        payload: signups
+      })
+    }
 
     return (
       <>
@@ -31,7 +46,7 @@ export default function Signup({character, token, event}) {
           }
         </DropdownButton>
         <Button 
-          onClick={() => submitSignup(token, event._id, character._id, status)} 
+          onClick={signupHandler} 
           variant="dark">
           Submit
         </Button>

@@ -9,14 +9,19 @@ export const loginLocal = (email, password) => dispatch => {
             'Content-Type': 'application/json'
         }
     })
-    .then(res => res.json())
+    .then(res => {
+        if (res.status === 401) {
+            throw new Error("Invalid credentials");
+        }
+        return res.json()
+    })
     .then(json => {
         dispatch({
             type: LOGIN,
             payload: json,
         });
     })
-    .catch(e => console.log(e));
+    .catch(err => { return err.toString() });
 }
 
 export const loginGoogle = search => dispatch => {

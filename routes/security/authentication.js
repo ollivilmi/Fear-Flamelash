@@ -17,12 +17,12 @@ passport.use(new LocalStrategy({
   }, 
   async function (req, name, password, done) {
         user = await User.findOne({email: req.body.email});
-        if (!user) return done("email not found");
+        if (!user) return done(null, false);
 
         match = await bcrypt.compare(req.body.password, user.hash);
 
         if (!match) {
-            return done("invalid password")
+            return done(null, false)
         } else {
             return done(null, user);
         }
@@ -37,7 +37,7 @@ async function (token, done) {
         const user = await User.findById(token.user._id);
 
         if (!user || user.role === 'none'){
-            return done("user not found");
+            return done(null, false);
         }
         return done(null, user);
     }

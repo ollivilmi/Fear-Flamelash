@@ -15,8 +15,9 @@ router.post("/", async (req,res) => {
         return;
     }
 
-    new Event(req.body).save().then(() => {
-        return res.status(200).json({message: "Event created"});
+    new Event(req.body).save().then(async () => {
+        const events = await Event.find();
+        return res.status(200).json({message: "Event created", events});
     })
     .catch(err => {
         return res.status(400).json({message: "Error creating event: " + err});
@@ -56,7 +57,9 @@ router.post("/signup", async (req, res) => {
         });
     }
 
-    res.status(200).json({message: "Signed up"});
+    const event = await Event.findById(req.body.eventId);
+
+    res.status(200).json({signups: event.signups});
 })
 
 module.exports = router;

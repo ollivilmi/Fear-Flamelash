@@ -32,8 +32,7 @@ router.post("/register", async(req, res, next) => {
   });
   user.save((err, user) => {
     if (err) {
-      console.log(err);
-      res.status(400).json({message: "Email already exists"});
+      res.status(400).json({message: "Email already taken"});
     } else {
       jwt.sign({user}, process.env.JWT_SECRET, (err, token) => {
         res.status(200).json({message: "User created!"});

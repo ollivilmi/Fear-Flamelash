@@ -14,6 +14,13 @@ import Registration from "../functional/user/Registration";
 
 
 class LoginPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      errorMessage: null
+    };
+  }
+
   render() {
     const loginEmail = React.createRef();
     const loginPassword = React.createRef();
@@ -23,6 +30,13 @@ class LoginPage extends Component {
     if (this.props.loginGoogle(this.props.location.search) || this.props.token) {
       this.props.history.push(`/events`)
     };
+
+    const localLoginHandler = async () => {
+      const errorMessage = await this.props.loginLocal(loginEmail.current.value, loginPassword.current.value)
+      if (errorMessage) {
+        this.setState({errorMessage});
+      }
+    }
 
     return (
     <>
@@ -47,9 +61,13 @@ class LoginPage extends Component {
     </Col>
     <Col className="justify-content-md-center">
       <Col style={buttonMargin}>
-        <Button onClick={() => this.props.loginLocal(loginEmail.current.value, loginPassword.current.value)} variant="dark" block>
+        <Button onClick={localLoginHandler} variant="dark" block>
           Login < IoIosLogIn/>
         </Button>
+        {
+          this.state.errorMessage && 
+          <Form.Text className="text-muted">{this.state.errorMessage}</Form.Text>
+        }
       </Col>
       <Col style={buttonMargin}>
         <a href="/api/auth/google">

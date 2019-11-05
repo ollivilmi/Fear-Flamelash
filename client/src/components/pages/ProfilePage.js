@@ -36,18 +36,20 @@ class ProfilePage extends Component {
               />
             )
             : ( 
-              <p>{user.role}</p>
+              <>
+                <p>{user.role}</p>
+                <Col className="form-lg-centered">
+                  <Character character={this.props.character} />
+                </Col>
+                <Col className="form-lg-centered">
+                  <CharacterLink token={this.props.token} />
+                </Col>
+                <Col className="form-lg-centered">
+                  <CharacterCreation token={this.props.token} />
+                </Col>
+              </>
             )
           }
-          <Col className="form-lg-centered">
-            <Character character={this.props.character} />
-          </Col>
-          <Col className="form-lg-centered">
-            <CharacterCreation token={this.props.token} />
-          </Col>
-          <Col className="form-lg-centered">
-            <CharacterLink token={this.props.token} />
-          </Col>
         </Col>
       </>
     );

@@ -4,14 +4,25 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import moment from 'moment';
 
-import {createEvent} from '../../../actions/eventActions';
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-export default function CreateEventModal({token, date, show, onHide}) {
+import {createEvent} from '../../../actions/eventActions';
+import { UPDATE_EVENTS } from '../../../actions/types';
+
+export default function CreateEventModal({date, show, onHide}) {
+    const dispatch = useDispatch()
+    const token = useSelector(state => state.user.token);
+
+    // form
     const title = React.useRef();
     const description = React.useRef();
     const start = React.useRef();
     const end = React.useRef();
+
+    // feedback
     const [message, setMessage] = React.useState('')
+
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -35,7 +46,13 @@ export default function CreateEventModal({token, date, show, onHide}) {
                 end: endDate
             }
 
-            createEvent(token, newEvent).then(msg => setMessage(msg));
+            createEvent(token, newEvent).then(res => {
+                setMessage(res.message);
+                dispatch({
+                    type: UPDATE_EVENTS,
+                    payload: res.events
+                })
+            });
         }
         catch(err) {
             setMessage("Failed to create event... " + err)

@@ -25,7 +25,7 @@ export const linkCharacter = (token, character) => {
         },
     })
     .then(() => console.log("linked character " + character))
-    .catch(e => console.log(e));
+    .catch();
 }
 
 export const getCharacter = (token) => dispatch => {
@@ -41,6 +41,7 @@ export const getCharacter = (token) => dispatch => {
             payload: json.character
         })
     })
+    .catch()
 }
 
 export const getCharacters = token => dispatch => {
@@ -57,6 +58,6 @@ export const getCharacters = token => dispatch => {
             payload
         })
     })
-    .catch(e => console.log(e));
+    .catch();
 }
 

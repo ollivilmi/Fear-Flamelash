@@ -25,6 +25,10 @@ router.delete("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const character = await Character.findById(req.user.character);
+  if (!character) {
+    res.status(400).json({message: "No character found"});
+  }
+
   return res.status(200).json({character});
 });
 

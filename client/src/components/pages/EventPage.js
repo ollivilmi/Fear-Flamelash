@@ -30,51 +30,47 @@ class EventPage extends Component {
     this.props.getCharacter(this.props.token);
   }
 
+  toggleEventModal = () => {
+    this.setState(state => ({
+      showEvent: !state.showEvent
+    }))
+  }
+
+  toggleCreateEventModal = () => {
+    this.setState(state => ({
+      showCreateEvent: !state.showCreateEvent
+    }))
+  }
+
+  onSelectSlotHandler = slot => {
+    if (this.props.user.profile.role === 'admin') {
+      this.setState({date: slot.start})
+      this.toggleCreateEventModal()
+    }
+  }
+
+  onSelectEventHandler = event => {
+    this.props.getSignups(this.props.token, event._id)
+    .then(
+      this.setState({event}),
+      this.toggleEventModal()
+    );
+  }
+
   render() {
-    const toggleEventModal = () => {
-      this.setState(state => ({
-        showEvent: !state.showEvent
-      }))
-    }
-
-    const toggleCreateEventModal = () => {
-      this.setState(state => ({
-        showCreateEvent: !state.showCreateEvent
-      }))
-    }
-
-    const onSelectSlotHandler = slot => {
-      if (this.props.user.profile.role === 'admin') {
-        this.setState({date: slot.start})
-        toggleCreateEventModal()
-      }
-    }
-
-    const onSelectEventHandler = event => {
-      getSignups(this.props.token, event._id)
-      .then(signups => {
-        this.setState({event, signups})
-        toggleEventModal()
-      })
-    }
-
     return (
       <>
         <NavigationBar />
         <Row style={{justifyContent: 'center'}} >
           <EventModal 
             show={this.state.showEvent} 
-            onHide={toggleEventModal}
+            onHide={this.toggleEventModal}
             event={this.state.event}
-            token={this.props.token}
-            character={this.props.character}
-            signups={this.state.signups}
           />
           <CreateEventModal
             show={this.state.showCreateEvent} 
-            onHide={toggleCreateEventModal}
+            onHide={this.toggleCreateEventModal}
             date={this.state.date}
-            token={this.props.token}
           />
           <Calendar
             views={{
@@ -85,8 +81,8 @@ class EventPage extends Component {
             events={this.props.events}
             style={{height: 400, width: "80%"}}
             selectable={true} // Enables SelectSlotHandler
-            onSelectSlot={onSelectSlotHandler} // Click a day from the grid
-            onSelectEvent={onSelectEventHandler} // Click an event
+            onSelectSlot={this.onSelectSlotHandler} // Click a day from the grid
+            onSelectEvent={this.onSelectEventHandler} // Click an event
           />
         </Row>
       </>
@@ -97,7 +93,7 @@ class EventPage extends Component {
 EventPage.propTypes = {
   user: PropTypes.object,
   character: PropTypes.object,
-  events: PropTypes.array.isRequired
+  events: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -107,4 +103,4 @@ const mapStateToProps = state => ({
   character: state.character.main
 });
 
-export default connect(mapStateToProps,{getEvents, getCharacter})(EventPage);
+export default connect(mapStateToProps,{getEvents, getSignups, getCharacter})(EventPage);

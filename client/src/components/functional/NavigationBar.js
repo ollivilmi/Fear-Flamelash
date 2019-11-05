@@ -15,26 +15,26 @@ export default function NavigationBar() {
 
     return (
         <Navbar expand="sm" className="navbar">
-            <Navbar.Brand>
+            <span class="navbar-brand">
                 <NavLink className="nav" exact to="/events" activeClassName="activeNav">
                     <GoCalendar style={margin} />Events
                 </NavLink>
-            </Navbar.Brand >
-            <Nav.Link>
+            </span>
+            <div class="nav-link">
                 <NavLink className="nav" exact to="/epgp" activeClassName="activeNav">
                     <FaDragon style={margin} />EPGP
                 </NavLink>
-            </Nav.Link>
-            <Nav.Link>
+            </div>
+            <div class="nav-link">
                 <NavLink className="nav" exact to="/profile" activeClassName="activeNav">
                     <GoPerson style={margin} />Profile
                 </NavLink>
-            </Nav.Link>
-            <Navbar.Collapse className="justify-content-end">
+            </div>
+            <div className="justify-content-end navbar-collapse collapse">
                 <Nav.Link className="nav" href="/" onClick={() => {localStorage.clear()}}>
                     <IoIosLogOut /> Logout
                 </Nav.Link>
-            </Navbar.Collapse>
+            </div>
         </Navbar>
     )
 }

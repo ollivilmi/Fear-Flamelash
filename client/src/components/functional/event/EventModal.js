@@ -5,12 +5,17 @@ import moment from 'moment';
 import Signup from './Signup';
 import SignupTable from './SignupTable';
 import CharacterLink from '../character/CharacterLink';
+import { useSelector } from 'react-redux'
 
 // Character is needed for signing up
-export default function EventModal({event, show, onHide, character, token, signups}) {
+export default function EventModal({event, show, onHide}) {
     let start;
     let end;
     // let timeLeft;
+
+    const signups = useSelector(state => state.event.signups);
+    const character = useSelector(state => state.character.main);
+    const token = useSelector(state => state.user.token);
 
     if (event) {
         start = moment(event.start);
@@ -48,8 +53,6 @@ export default function EventModal({event, show, onHide, character, token, signu
                             <CharacterLink token={token} />
                         ) : (
                             <Signup
-                                token={token}
-                                character={character}
                                 event={event}
                             />
                         )
