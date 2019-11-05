@@ -1,0 +1,26 @@
+runtime: nodejs
+env: flex
+
+manual_scaling:
+  instances: 1
+
+resources:
+  cpu: .5
+  memory_gb: 0.5
+  disk_size_gb: 10
+
+handlers:
+  - url: /
+    static_files: client/build/index.html
+    upload: client/build/index.html
+  - url: /
+    static_dir: client/build
+
+env_variables:
+  MONGO_DB: "<your mongodb connection url, including username and password"
+  JWT_SECRET: '<random string here>'
+  GCLIENT_ID: '<your google client id, empty if you do not want google login>'
+  GCLIENT_SECRET: '<your google client secret, empty if you do not want google login>'
+  GCALLBACK: 'https://<your-project-name>.appspot.com/api/auth/googleCallBack [needs to be configured on google]'
+  MEMBER_REFERRAL: "<string for member access grant>"
+  ADMIN_REFERRAL: "<string for admin access grant>"
