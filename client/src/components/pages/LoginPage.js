@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form'
 import { IoIosLogIn, IoLogoGoogle } from "react-icons/io";
 import { FiMail, FiKey } from "react-icons/fi";
 
-import Registration from "../functional/Registration";
+import Registration from "../functional/user/Registration";
 
 
 class LoginPage extends Component {

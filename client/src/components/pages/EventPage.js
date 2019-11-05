@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getEvents} from '../../actions/eventActions';
+import {getCharacter} from '../../actions/charActions';
+import {getSignups} from '../../actions/eventActions';
 
 import { Calendar, momentLocalizer  } from 'react-big-calendar';
 import moment from 'moment';
 
 import NavigationBar from '../functional/NavigationBar';
 import Row from 'react-bootstrap/Row';
-import Event from '../functional/Event';
-import CreateEvent from '../functional/CreateEvent';
+import EventModal from '../functional/event/EventModal';
+import CreateEventModal from '../functional/event/CreateEventModal';
 
 class EventPage extends Component {
   constructor(props) {
@@ -23,34 +25,52 @@ class EventPage extends Component {
   }
 
   componentDidMount() {
+    !this.props.token && this.props.history.push(`/`);
     this.props.getEvents(this.props.token);
+    this.props.getCharacter(this.props.token);
   }
 
   render() {
-    const toggleEventModal = event => {
+    const toggleEventModal = () => {
       this.setState(state => ({
-        showEvent: !state.showEvent,
-        event: event
+        showEvent: !state.showEvent
       }))
     }
 
-    const toggleCreateEventModal = slots => {
+    const toggleCreateEventModal = () => {
       this.setState(state => ({
-        showCreateEvent: !state.showCreateEvent,
-        date: (slots && slots.start) || null
+        showCreateEvent: !state.showCreateEvent
       }))
+    }
+
+    const onSelectSlotHandler = slot => {
+      if (this.props.user.profile.role === 'admin') {
+        this.setState({date: slot.start})
+        toggleCreateEventModal()
+      }
+    }
+
+    const onSelectEventHandler = event => {
+      getSignups(this.props.token, event._id)
+      .then(signups => {
+        this.setState({event, signups})
+        toggleEventModal()
+      })
     }
 
     return (
       <>
         <NavigationBar />
         <Row style={{justifyContent: 'center'}} >
-          <Event 
+          <EventModal 
             show={this.state.showEvent} 
             onHide={toggleEventModal}
             event={this.state.event}
+            token={this.props.token}
+            character={this.props.character}
+            signups={this.state.signups}
           />
-          <CreateEvent
+          <CreateEventModal
             show={this.state.showCreateEvent} 
             onHide={toggleCreateEventModal}
             date={this.state.date}
@@ -61,20 +81,12 @@ class EventPage extends Component {
               month: true,
               agenda: true,
             }}
-            localizer={momentLocalizer(moment)}
+            localizer={momentLocalizer(moment)} // Local time
             events={this.props.events}
-            startAccessor="start"
-            endAccessor="end"
             style={{height: 400, width: "80%"}}
-            selectable={true}
-            onSelectSlot={(slot) => {
-              if (this.props.role === 'admin') {
-                toggleCreateEventModal(slot)
-              }
-           }}
-            onSelectEvent={event => {
-              toggleEventModal(event)
-           }}
+            selectable={true} // Enables SelectSlotHandler
+            onSelectSlot={onSelectSlotHandler} // Click a day from the grid
+            onSelectEvent={onSelectEventHandler} // Click an event
           />
         </Row>
       </>
@@ -84,14 +96,15 @@ class EventPage extends Component {
 
 EventPage.propTypes = {
   user: PropTypes.object,
+  character: PropTypes.object,
   events: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
   user: state.user,
-  role: state.user.profile.role,
   token: state.user.token,
-  events: state.event.events
+  events: state.event.events,
+  character: state.character.main
 });
 
-export default connect(mapStateToProps,{getEvents})(EventPage);
+export default connect(mapStateToProps,{getEvents, getCharacter})(EventPage);

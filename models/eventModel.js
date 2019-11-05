@@ -6,10 +6,7 @@ const Character = require("./characterModel");
 const signupSchema = new Schema(
     {
         character: { type: Schema.Types.ObjectId, ref: 'Character', autopopulate: true, required: true },
-        status: { type: String, enum: ["accepted", "tentative", "declined"], required: true}
-    },
-    {
-        timestamps: true // createdAt, updatedAt
+        status: { type: String, enum: ["accept", "tentative", "decline"], required: true}
     }
 )
 

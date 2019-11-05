@@ -1,5 +1,5 @@
 import React from 'react';
-import {createCharacter} from '../../actions/charActions';
+import {createCharacter} from '../../../actions/charActions';
 
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
@@ -36,7 +36,6 @@ export default function CharacterCreation({token}) {
 
     return (
       <Col>
-        <Col className="form-lg-centered">
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text id="charName">New character</InputGroup.Text>
@@ -80,9 +79,6 @@ export default function CharacterCreation({token}) {
             </InputGroup.Append>
           </InputGroup>
           <p>{message}</p>
-        </Col>
-
-
       </Col>
     )
   }

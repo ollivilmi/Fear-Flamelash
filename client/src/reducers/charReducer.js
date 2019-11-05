@@ -2,7 +2,7 @@ import {UPDATE_CHARACTERS, USER_CHARACTER} from '../actions/types';
 
 const initialState = {
     characters: [],
-    user: {}
+    main: {}
 };
 
 export default function(state = initialState, action) {
@@ -17,7 +17,7 @@ export default function(state = initialState, action) {
       case USER_CHARACTER:
         return {
           ...state,
-          user: action.payload
+          main: action.payload
         }
 
       default:

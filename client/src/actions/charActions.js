@@ -31,7 +31,6 @@ export const linkCharacter = (token, character) => {
 export const getCharacter = (token) => dispatch => {
     return fetch('/api/character', {
         headers: {
-            'Content-Type': 'application/json',
             Authorization: 'Bearer ' + token
         }
     })
@@ -45,7 +44,6 @@ export const getCharacter = (token) => dispatch => {
 }
 
 export const getCharacters = token => dispatch => {
-
     return fetch('/api/character/all', {
         method: 'GET',
         headers: {

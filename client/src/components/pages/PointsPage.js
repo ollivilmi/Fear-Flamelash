@@ -11,7 +11,8 @@ import 'react-table/react-table.css'
 
 class PointsPage extends Component {
   componentDidMount() {
-    this.props.getCharacters(this.props.user.token);
+    !this.props.token && this.props.history.push(`/`);
+    this.props.getCharacters(this.props.token);
   }
 
   render() {
@@ -60,7 +61,7 @@ class PointsPage extends Component {
           <FileUpload 
             title="From CSV"
             url="/api/character/import"
-            token={this.props.user.token}
+            token={this.props.token}
           />
         }
         </div>
@@ -76,6 +77,7 @@ PointsPage.propTypes = {
 
 const mapStateToProps = state => ({
   user: state.user,
+  token: state.user.token,
   characters: state.character.characters
 });
 

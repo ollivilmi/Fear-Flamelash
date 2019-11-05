@@ -24,8 +24,8 @@ router.delete("/", async (req, res) => {
 })
 
 router.get("/", async (req, res) => {
-  const fullUser = await User.findById(req.user._id).populate('character');
-  return res.status(200).json({character: fullUser.character});
+  const character = await Character.findById(req.user.character);
+  return res.status(200).json({character});
 });
 
 router.get("/all", async (req, res) => {

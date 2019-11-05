@@ -1,4 +1,5 @@
 import {UPDATE_EVENTS} from './types';
+import { stringify } from 'query-string';
 
 export const createEvent = (token, event) => {
     return fetch('/api/event', {
@@ -28,4 +29,29 @@ export const getEvents = token => dispatch => {
         })
      })
     .catch(e => console.log(e));
+}
+
+export const getSignups = (token, eventId) => {
+    return fetch(`/api/event/signup?${stringify({eventId})}`, {
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+    .then(res => res.json())
+    .then(json => {return json.signups})
+    .catch(e => console.log(e))
+}
+
+export const submitSignup = (token, eventId, character, status) => {
+    return fetch(`/api/event/signup`, {
+        method: "POST",
+        body: JSON.stringify({eventId, status, character}),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+        }
+    })
+    .then(res => res.json())
+    .then(json => {return json.signups})
+    .catch(e => console.log(e))
 }

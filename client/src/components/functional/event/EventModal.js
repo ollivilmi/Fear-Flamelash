@@ -2,8 +2,12 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import moment from 'moment';
+import Signup from './Signup';
+import SignupTable from './SignupTable';
+import CharacterLink from '../character/CharacterLink';
 
-export default function Event({event, show, onHide}) {
+// Character is needed for signing up
+export default function EventModal({event, show, onHide, character, token, signups}) {
     let start;
     let end;
     // let timeLeft;
@@ -31,15 +35,25 @@ export default function Event({event, show, onHide}) {
                             <p>{event.title}</p>
                             <p>{start.format("dddd LT")} - {end.format("LT")}</p>
                         </Modal.Title>
+                        <Button variant="dark" onClick={onHide}>
+                            Edit
+                        </Button>
                     </Modal.Header>
                     <Modal.Body>
-                        signups here
+                        <p>{event.description}</p>
+                        <SignupTable signups={signups} />
                     </Modal.Body>
                     <Modal.Footer>
-                        <p>{event.description}</p>
-                        <Button variant="dark" onClick={onHide}>
-                            Edit event
-                        </Button>
+                        { !character ? (
+                            <CharacterLink token={token} />
+                        ) : (
+                            <Signup
+                                token={token}
+                                character={character}
+                                event={event}
+                            />
+                        )
+                        }
                     </Modal.Footer>
                     </>
                 )

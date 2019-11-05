@@ -13,8 +13,8 @@ describe('Events CRUD tests', () => {
         testEvent = new Event({
             name: "Molten Core", 
             description: "kill ragnaros", 
-            start: moment().add(1, 'days'),
-            end: moment().add(1, 'days').add(3, 'hours')
+            start: moment().add(1, 'days').toDate(),
+            end: moment().add(1, 'days').add(3, 'hours').toDate()
         });
         return testEvent.save();
     });
@@ -29,7 +29,7 @@ describe('Events CRUD tests', () => {
         
         await testChar.save();
         await Event.updateOne({_id: testEvent._id}, { 
-            $push: { signups: {character: testChar, status: "accepted"}
+            $push: { signups: {character: testChar, status: "accept"}
                 }
             }
         );

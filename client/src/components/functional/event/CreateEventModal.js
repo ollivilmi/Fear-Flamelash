@@ -4,9 +4,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import moment from 'moment';
 
-import {createEvent} from '../../actions/eventActions';
+import {createEvent} from '../../../actions/eventActions';
 
-export default function CreateEvent({token, date, show, onHide}) {
+export default function CreateEventModal({token, date, show, onHide}) {
     const title = React.useRef();
     const description = React.useRef();
     const start = React.useRef();

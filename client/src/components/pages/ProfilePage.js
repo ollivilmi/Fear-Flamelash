@@ -7,13 +7,14 @@ import {getCharacter} from '../../actions/charActions';
 import Col from 'react-bootstrap/Col';
 
 import NavigationBar from '../functional/NavigationBar';
-import Referral from '../functional/Referral';
-import Character from '../functional/Character';
-import CharacterCreation from '../functional/CharacterCreation';
-import CharacterLink from '../functional/CharacterLink';
+import Referral from '../functional/user/Referral';
+import Character from '../functional/character/Character';
+import CharacterCreation from '../functional/character/CharacterCreation';
+import CharacterLink from '../functional/character/CharacterLink';
 
 class ProfilePage extends Component {
   componentDidMount() {
+    !this.props.token && this.props.history.push(`/`);
     this.props.getCharacter(this.props.token);
   }
 
@@ -41,8 +42,12 @@ class ProfilePage extends Component {
           <Col className="form-lg-centered">
             <Character character={this.props.character} />
           </Col>
-          <CharacterCreation token={this.props.token} />
-          <CharacterLink token={this.props.token} />
+          <Col className="form-lg-centered">
+            <CharacterCreation token={this.props.token} />
+          </Col>
+          <Col className="form-lg-centered">
+            <CharacterLink token={this.props.token} />
+          </Col>
         </Col>
       </>
     );
@@ -56,7 +61,7 @@ ProfilePage.propTypes = {
 
 const mapStateToProps = state => ({
   user: state.user,
-  character: state.character.user,
+  character: state.character.main,
   token: state.user.token
 });
 
